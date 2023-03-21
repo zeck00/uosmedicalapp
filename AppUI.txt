@@ -1,0 +1,8 @@
+Health and Nutrition Course App - UI Design
+This is the UI design for the Health and Nutrition Course App, designed according to the UOS (User Operating System) guidelines. The full UI is ready to work on and code. You can view the UI design by accessing the following link:
+
+https://www.figma.com/file/dpyO05V6DEoRrYRI4aIEWn/App---UOS-UI-Guidelines?node-id=1%3A3&t=cwIDZP4LLX2OMhr2-1
+
+The UI design follows the UOS guidelines, ensuring a user-friendly and accessible experience for both students and instructors. The design includes intuitive navigation, clear and concise information display, and an interactive learning experience.
+
+To implement this UI design, you can download the Figma file from the link above and use it as a reference when coding the front-end of the Health and Nutrition Course App.
