@@ -84,4 +84,10 @@ class FontStyles {
     fontWeight: FontWeight.w400,
     fontSize: 10,
   );
+
+  static const TextStyle appname = TextStyle(
+    fontFamily: 'Mulish',
+    fontWeight: FontWeight.w900,
+    fontSize: 20,
+  );
 }

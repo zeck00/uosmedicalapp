@@ -99,4 +99,10 @@ class MyIcons {
       'assets/icons/arrow-down.svg',
     );
   }
+
+  static Widget swipearrow() {
+    return SvgPicture.asset(
+      'assets/icons/Swipearrow.svg',
+    );
+  }
 }
