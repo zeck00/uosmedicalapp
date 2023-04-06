@@ -5,8 +5,6 @@ import 'package:flutter_application_1/mycolors.dart';
 import 'package:flutter_application_1/myfonts.dart';
 import 'package:flutter_application_1/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'home_page.dart';
 import 'profile_page.dart';

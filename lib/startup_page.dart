@@ -70,16 +70,17 @@ class _StartupPageState extends State<StartupPage> {
                       )
                     ],
                   ),
-                  SizedBox(height: 335),
+                  Expanded(child: Container()),
                   SlideAction(
                     text: "",
                     outerColor: MyColors.magenta,
+                    innerColor: MyColors.white,
                     height: 80,
                     borderRadius: 60,
                     elevation: 0,
                     sliderButtonIcon: Icon(Icons.arrow_right_rounded, size: 70),
                     sliderButtonIconPadding: 0,
-                    animationDuration: Duration(milliseconds: 10),
+                    animationDuration: Duration(milliseconds: 100),
                     onSubmit: () {
                       Navigator.push(
                         context,
