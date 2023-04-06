@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/mycolors.dart';
 import 'package:flutter_application_1/myfonts.dart';
@@ -23,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/Splash.png"), fit: BoxFit.cover),
         ),
@@ -48,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ProfilePage()),
+                                builder: (context) => const ProfilePage()),
                           );
                         },
                       ),
@@ -95,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   BlurryContainer(
                     blur: 100,
                     width: MediaQuery.of(context).size.width,
@@ -133,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   BlurryContainer(
                     blur: 100,
                     width: MediaQuery.of(context).size.width,
@@ -169,14 +167,14 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => QPage()),
+                                        builder: (context) => const QPage()),
                                   );
                                 },
                                 child: MyIcons.arrowcircle(),
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           BlurryContainer(
                             blur: 100,
                             width: MediaQuery.of(context).size.width,
@@ -184,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                             color: MyColors.yellow.withOpacity(0.35),
                             borderRadius: BorderRadius.circular(35),
                             elevation: 10,
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 "Health is a state of complete physical, mental and social well-being and not merely the absence of disease or infirmity",
                                 style: FontStyles.questions,
@@ -192,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Row(
                             children: [
                               ElevatedButton(
@@ -205,14 +203,14 @@ class _HomePageState extends State<HomePage> {
                                             35) // Set rounded corner radius
                                         ),
                                     backgroundColor: MyColors.green,
-                                    minimumSize: Size(120, 45)),
-                                child: Text(
+                                    minimumSize: const Size(120, 45)),
+                                child: const Text(
                                   'True',
                                   style: FontStyles
                                       .button, // Set text color to white
                                 ),
                               ),
-                              SizedBox(width: 29),
+                              const SizedBox(width: 29),
                               ElevatedButton(
                                 onPressed: () {
                                   // Add your onPressed action here
@@ -223,8 +221,8 @@ class _HomePageState extends State<HomePage> {
                                             35) // Set rounded corner radius
                                         ),
                                     backgroundColor: MyColors.pink,
-                                    minimumSize: Size(120, 45)),
-                                child: Text(
+                                    minimumSize: const Size(120, 45)),
+                                child: const Text(
                                   'False',
                                   style: FontStyles
                                       .button, // Set text color to white
@@ -249,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()),
+                                  builder: (context) => const HomePage()),
                             );
                           },
                           child: MyIcons.homeslc(),
@@ -262,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SearchPage()),
+                                    builder: (context) => const SearchPage()),
                               );
                             },
                             child: MyIcons.search()),
@@ -274,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SettingsPage()),
+                                    builder: (context) => const SettingsPage()),
                               );
                             },
                             child: MyIcons.settings()),
