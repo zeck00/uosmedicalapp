@@ -276,7 +276,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         label: 'Settings',
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

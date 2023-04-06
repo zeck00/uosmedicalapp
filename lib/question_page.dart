@@ -6,6 +6,9 @@ import 'package:flutter_application_1/home_page.dart';
 import 'package:flutter_application_1/mycolors.dart';
 import 'package:flutter_application_1/myfonts.dart';
 import 'package:flutter_application_1/myicons.dart';
+import 'package:flutter_application_1/search_page.dart';
+import 'package:flutter_application_1/setttings_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'profile_page.dart';
 
@@ -69,7 +72,118 @@ class _QPageState extends State<QPage> {
                         Expanded(child: Container()),
                         InkWell(child: MyIcons.qhelparrow()),
                       ],
-                    )
+                    ),
+                    Expanded(child: Container()),
+                    Stack(
+                      children: [
+                        Positioned(
+                          child: BlurryContainer(
+                            width: MediaQuery.of(context).size.width,
+                            height: 595,
+                            borderRadius: BorderRadius.circular(35),
+                            color: MyColors.blue,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 125),
+                                BlurryContainer(
+                                    width: 295,
+                                    height: 95,
+                                    color: MyColors.yellow.withOpacity(0.45),
+                                    child: Center(
+                                      child: Text(
+                                        "What is the definition of health according to the WHO?",
+                                        style: FontStyles.questions,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          child: BlurryContainer(
+                            elevation: 10,
+                            width: MediaQuery.of(context).size.width,
+                            height: 120,
+                            borderRadius: BorderRadius.circular(35),
+                            color: MyColors.blue.withOpacity(0.45),
+                            blur: 100,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 15),
+                                Row(
+                                  children: const [
+                                    SizedBox(width: 25),
+                                    Text(
+                                      "Let's Test Your",
+                                      style: FontStyles.bigtitle,
+                                    ),
+                                    SizedBox(width: 30),
+                                  ],
+                                ),
+                                Row(
+                                  children: const [
+                                    SizedBox(width: 45),
+                                    Text(
+                                      "Knowledge !",
+                                      style: FontStyles.bigtitle,
+                                    ),
+                                    SizedBox(width: 45),
+                                  ],
+                                ),
+                                SizedBox(width: 15),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(child: Container()),
+                    BottomNavigationBar(
+                      elevation: 0,
+                      backgroundColor: MyColors.black.withAlpha(0),
+                      showSelectedLabels: false,
+                      showUnselectedLabels: false,
+                      items: [
+                        BottomNavigationBarItem(
+                          icon: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()),
+                              );
+                            },
+                            child: MyIcons.home(),
+                          ),
+                          label: 'Home',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchPage()),
+                                );
+                              },
+                              child: MyIcons.search()),
+                          label: 'Search',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SettingsPage()),
+                                );
+                              },
+                              child: MyIcons.settingslc()),
+                          label: 'Settings',
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

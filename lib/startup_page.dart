@@ -84,7 +84,7 @@ class _StartupPageState extends State<StartupPage> {
                     onSubmit: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SearchPage()),
+                        MaterialPageRoute(builder: (context) => HomePage()),
                       );
                     },
                   ),
