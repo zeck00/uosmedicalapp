@@ -86,16 +86,61 @@ class _QPageState extends State<QPage> {
                               children: [
                                 SizedBox(height: 125),
                                 BlurryContainer(
-                                    width: 295,
-                                    height: 95,
-                                    color: MyColors.yellow.withOpacity(0.45),
-                                    child: Center(
-                                      child: Text(
-                                        "What is the definition of health according to the WHO?",
-                                        style: FontStyles.questions,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ))
+                                  borderRadius: BorderRadius.circular(35),
+                                  width: 295,
+                                  height: 95,
+                                  color: MyColors.yellow.withOpacity(0.45),
+                                  padding: EdgeInsets.all(15),
+                                  child: Center(
+                                    child: Text(
+                                      "What is the definition of health according to the WHO?",
+                                      style: FontStyles.questions,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                BlurryContainer(
+                                  width: 295,
+                                  height: 95,
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: MyColors.darkBlue.withOpacity(0.45),
+                                  child: Center(
+                                    child: Text(
+                                      "Health is a state of incomplete physical, well-being and merely the absence of disease or infirmity",
+                                      style: FontStyles.subs,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                BlurryContainer(
+                                  width: 295,
+                                  height: 95,
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: MyColors.darkBlue.withOpacity(0.45),
+                                  child: Center(
+                                    child: Text(
+                                      "Health is a state of incomplete physical, well-being and merely the absence of disease or infirmity",
+                                      style: FontStyles.subs,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                BlurryContainer(
+                                  width: 295,
+                                  height: 95,
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: MyColors.darkBlue.withOpacity(0.45),
+                                  child: Center(
+                                    child: Text(
+                                      "Health is a state of complete physical, mental and social well-being and not merely the absence of disease or infirmity",
+                                      style: FontStyles.subs,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
