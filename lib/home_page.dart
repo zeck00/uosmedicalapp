@@ -6,6 +6,7 @@ import 'package:flutter_application_1/myfonts.dart';
 import 'package:flutter_application_1/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_application_1/profile_page.dart';
+import 'package:flutter_application_1/question_page.dart';
 import 'search_page.dart';
 import 'setttings_page.dart';
 
@@ -163,7 +164,16 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Expanded(child: Container()),
-                              MyIcons.arrowcircle()
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => QPage()),
+                                  );
+                                },
+                                child: MyIcons.arrowcircle(),
+                              ),
                             ],
                           ),
                           SizedBox(height: 15),

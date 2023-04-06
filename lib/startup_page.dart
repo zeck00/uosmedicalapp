@@ -4,9 +4,9 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home_page.dart';
 import 'package:flutter_application_1/myfonts.dart';
+import 'package:flutter_application_1/search_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:slide_to_act/slide_to_act.dart';
-
 import 'mycolors.dart';
 
 class StartupPage extends StatefulWidget {
@@ -80,11 +80,11 @@ class _StartupPageState extends State<StartupPage> {
                     elevation: 0,
                     sliderButtonIcon: Icon(Icons.arrow_right_rounded, size: 70),
                     sliderButtonIconPadding: 0,
-                    animationDuration: Duration(milliseconds: 100),
+                    animationDuration: Duration(milliseconds: 90),
                     onSubmit: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => SearchPage()),
                       );
                     },
                   ),

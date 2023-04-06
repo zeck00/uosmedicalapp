@@ -105,4 +105,16 @@ class MyIcons {
       'assets/icons/Swipearrow.svg',
     );
   }
+
+  static Widget qhelparrow() {
+    return SvgPicture.asset(
+      'assets/icons/Qhelparrow.svg',
+    );
+  }
+
+  static Widget backhome() {
+    return SvgPicture.asset(
+      'assets/icons/Backhome.svg',
+    );
+  }
 }
