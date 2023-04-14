@@ -47,11 +47,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  flutter_native_splash: ^2.0.1+1
+  flutter_launcher_icons: ^0.13.0
 
-flutter_native_splash: 
-  background_image: assets/images/Splash.png
-  image: assets/images/Splash-icon.png
+flutter_icons:
+  image_path: "assets/images/appicon.png"
+  android: true
+  ios: true
+
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
