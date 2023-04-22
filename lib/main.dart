@@ -6,7 +6,7 @@ import 'package:flutter_application_1/screens/startup_page.dart';
 
 void main() {
   runApp(MyApp());
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  // SystemChrome.setEnabledSystemUIMode();
 }
 
 class MyApp extends StatelessWidget {
