@@ -190,19 +190,19 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Expanded(child: Container()),
-                              _questions.isNotEmpty
-                                  ? InkWell(
-                                      onTap: () {
+                              InkWell(
+                                onTap: _questions.isNotEmpty
+                                    ? () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => QPage(
                                                   question: _questions[0])),
                                         );
-                                      },
-                                      child: MyIcons.arrowcircle(),
-                                    )
-                                  : Container(),
+                                      }
+                                    : () {},
+                                child: MyIcons.arrowcircle(),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 15),
