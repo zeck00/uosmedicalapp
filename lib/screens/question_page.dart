@@ -13,7 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'profile_page.dart';
 
 class QPage extends StatefulWidget {
-  const QPage({super.key});
+  final Map question;
+  const QPage({super.key, required this.question});
 
   @override
   State<QPage> createState() => _QPageState();
@@ -22,6 +23,15 @@ class QPage extends StatefulWidget {
 class _QPageState extends State<QPage> {
   @override
   Widget build(BuildContext context) {
+    final String questionStr = widget.question["question"];
+    final List<String> choices =
+        (widget.question["choices"] as List).map((e) => e as String).toList();
+    var answerIndex = widget.question["answer_index"];
+    final bool multiChoice = answerIndex is! int;
+    if (multiChoice) {
+      answerIndex = (answerIndex as List).map((e) => e as int).toList();
+    }
+
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -79,7 +89,7 @@ class _QPageState extends State<QPage> {
                         Positioned(
                           child: BlurryContainer(
                             width: MediaQuery.of(context).size.width,
-                            height: 595,
+                            height: (230 + 100 * choices.length).toDouble(),
                             borderRadius: BorderRadius.circular(35),
                             color: MyColors.blue,
                             child: Column(
@@ -93,54 +103,36 @@ class _QPageState extends State<QPage> {
                                   padding: EdgeInsets.all(15),
                                   child: Center(
                                     child: Text(
-                                      "What is the definition of health according to the WHO?",
+                                      questionStr,
                                       style: FontStyles.questions,
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                BlurryContainer(
-                                  width: 295,
-                                  height: 95,
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: MyColors.darkBlue.withOpacity(0.45),
-                                  child: Center(
-                                    child: Text(
-                                      "Health is a state of incomplete physical, well-being and merely the absence of disease or infirmity",
-                                      style: FontStyles.subs,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
                                 SizedBox(height: 5),
-                                BlurryContainer(
-                                  width: 295,
-                                  height: 95,
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: MyColors.darkBlue.withOpacity(0.45),
-                                  child: Center(
-                                    child: Text(
-                                      "Health is a state of incomplete physical, well-being and merely the absence of disease or infirmity",
-                                      style: FontStyles.subs,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
+                                Column(
+                                  children: choices
+                                      .map((e) => Column(children: [
+                                            SizedBox(height: 5),
+                                            BlurryContainer(
+                                              width: 295,
+                                              height: 95,
+                                              borderRadius:
+                                                  BorderRadius.circular(35),
+                                              color: MyColors.darkBlue
+                                                  .withOpacity(0.45),
+                                              child: Center(
+                                                child: Text(
+                                                  e,
+                                                  style: FontStyles.subs,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ]))
+                                      .toList(),
                                 ),
-                                SizedBox(height: 5),
-                                BlurryContainer(
-                                  width: 295,
-                                  height: 95,
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: MyColors.darkBlue.withOpacity(0.45),
-                                  child: Center(
-                                    child: Text(
-                                      "Health is a state of complete physical, mental and social well-being and not merely the absence of disease or infirmity",
-                                      style: FontStyles.subs,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
+                                // SizedBox(height: 5),
                               ],
                             ),
                           ),
@@ -154,10 +146,10 @@ class _QPageState extends State<QPage> {
                             color: MyColors.blue.withOpacity(0.45),
                             blur: 100,
                             child: Column(
-                              children: [
+                              children: const [
                                 SizedBox(height: 15),
                                 Row(
-                                  children: const [
+                                  children: [
                                     SizedBox(width: 25),
                                     Text(
                                       "Let's Test Your",
@@ -167,7 +159,7 @@ class _QPageState extends State<QPage> {
                                   ],
                                 ),
                                 Row(
-                                  children: const [
+                                  children: [
                                     SizedBox(width: 45),
                                     Text(
                                       "Knowledge !",
