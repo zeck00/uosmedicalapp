@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
@@ -19,33 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map> _questions = [];
-  bool _questionsRead = false;
-
-  Future<void> readJson() async {
-    setState(() {
-      _questionsRead = true;
-    });
-
-    final String response =
-        await rootBundle.loadString('assets/data/questions.json');
-    // print(response);
-    final List<Map> data =
-        (await json.decode(response) as List).map((e) => e as Map).toList();
-    // print("data.toString()");
-    // print(data);
-
-    setState(() {
-      _questions = data;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (!_questionsRead) {
-      readJson();
-    }
-
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -96,9 +68,9 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Row(
                             children: [
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     "Continue",
                                     style: FontStyles.categories,
@@ -138,9 +110,9 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     "Explore the",
                                     style: FontStyles.categories,
@@ -176,9 +148,9 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     "Test Your",
                                     style: FontStyles.categories,
@@ -191,16 +163,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Expanded(child: Container()),
                               InkWell(
-                                onTap: _questions.isNotEmpty
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => QPage(
-                                                  question: _questions[0])),
-                                        );
-                                      }
-                                    : () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const QPage()),
+                                  );
+                                },
                                 child: MyIcons.arrowcircle(),
                               ),
                             ],
