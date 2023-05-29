@@ -4,7 +4,6 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/home_page.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
-import 'package:flutter_application_1/screens/search_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'mycolors.dart';
@@ -44,7 +43,7 @@ class _StartupPageState extends State<StartupPage> {
                     children: [
                       SvgPicture.asset(
                         'assets/icons/HS.svg',
-                        width: 265,
+                        width: MediaQuery.of(context).size.width,
                         height: 65,
                       )
                     ],

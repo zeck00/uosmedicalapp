@@ -7,7 +7,6 @@ import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'search_page.dart';
 import 'setttings_page.dart';
-import 'home_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -38,22 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      MyIcons.hs(),
-                      Expanded(child: Container()),
-                      InkWell(
-                        child: MyIcons.ppicon(),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfilePage()),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                  TopBar(),
                   const SizedBox(height: 30),
                   Column(
                     mainAxisSize: MainAxisSize.max,
@@ -232,51 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: FontStyles.header,
                   ),
                   Expanded(child: Container()),
-                  BottomNavigationBar(
-                    elevation: 0,
-                    backgroundColor: MyColors.black.withAlpha(0),
-                    showSelectedLabels: false,
-                    showUnselectedLabels: false,
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                            );
-                          },
-                          child: MyIcons.home(),
-                        ),
-                        label: 'Home',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SearchPage()),
-                              );
-                            },
-                            child: MyIcons.search()),
-                        label: 'Search',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsPage()),
-                              );
-                            },
-                            child: MyIcons.settingslc()),
-                        label: 'Settings',
-                      ),
-                    ],
-                  ),
+                  BottomNav(),
                 ],
               ),
             ),

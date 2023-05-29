@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
@@ -38,22 +38,7 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      MyIcons.hs(),
-                      SizedBox(width: 85),
-                      InkWell(
-                        child: MyIcons.ppicon(),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfilePage()),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                  TopBar(),
                   const SizedBox(height: 30),
                   Row(
                     children: [
@@ -102,51 +87,7 @@ class _SearchPageState extends State<SearchPage> {
                       itemCount: 10,
                     ),
                   ),
-                  BottomNavigationBar(
-                    elevation: 0,
-                    backgroundColor: MyColors.black.withAlpha(0),
-                    showSelectedLabels: false,
-                    showUnselectedLabels: false,
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                            );
-                          },
-                          child: MyIcons.home(),
-                        ),
-                        label: 'Home',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SearchPage()),
-                              );
-                            },
-                            child: MyIcons.searchslc()),
-                        label: 'Search',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsPage()),
-                              );
-                            },
-                            child: MyIcons.settings()),
-                        label: 'Settings',
-                      ),
-                    ],
-                  ),
+                  BottomNav(),
                 ],
               ),
             ),
@@ -184,6 +125,94 @@ class LessonBox extends StatelessWidget {
           SizedBox(width: 10),
         ],
       ),
+    );
+  }
+}
+
+class BottomNav extends StatefulWidget {
+  BottomNav({super.key});
+
+  @override
+  State<BottomNav> createState() => _BottomNavState();
+}
+
+class _BottomNavState extends State<BottomNav> {
+  bool isIconSelected = false;
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      elevation: 0,
+      backgroundColor: MyColors.black.withAlpha(0),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      items: [
+        BottomNavigationBarItem(
+          icon: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            child: MyIcons.home(),
+          ),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                );
+              },
+              child: MyIcons.search()),
+          label: 'Search',
+        ),
+        BottomNavigationBarItem(
+          icon: InkWell(
+            onTap: () {
+              setState(() {
+                isIconSelected = !isIconSelected;
+              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
+            },
+            child: MyIcons.settings(),
+          ),
+          label: 'Settings',
+        ),
+      ],
+    );
+  }
+}
+
+class TopBar extends StatefulWidget {
+  const TopBar({super.key});
+
+  @override
+  State<TopBar> createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MyIcons.hs(),
+        Expanded(child: Container()),
+        InkWell(
+          child: MyIcons.ppicon(),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          },
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/home_page.dart';
@@ -7,13 +6,10 @@ import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
-import 'package:flutter_application_1/screens/setttings_page.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'profile_page.dart';
 
 class QPage extends StatefulWidget {
-  const QPage({super.key});
+  final Map question;
+  const QPage({super.key, required this.question});
 
   @override
   State<QPage> createState() => _QPageState();
@@ -22,6 +18,15 @@ class QPage extends StatefulWidget {
 class _QPageState extends State<QPage> {
   @override
   Widget build(BuildContext context) {
+    final String questionStr = widget.question["question"];
+    final List<String> choices =
+        (widget.question["choices"] as List).map((e) => e as String).toList();
+    var answerIndex = widget.question["answer_index"];
+    final bool multiChoice = answerIndex is! int;
+    if (multiChoice) {
+      answerIndex = (answerIndex as List).map((e) => e as int).toList();
+    }
+
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -41,23 +46,8 @@ class _QPageState extends State<QPage> {
                 padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        MyIcons.hs(),
-                        Expanded(child: Container()),
-                        InkWell(
-                          child: MyIcons.ppicon(),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfilePage()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
+                    TopBar(),
+                    SizedBox(height: 15),
                     Row(
                       children: [
                         InkWell(
@@ -73,72 +63,76 @@ class _QPageState extends State<QPage> {
                         InkWell(child: MyIcons.qhelparrow()),
                       ],
                     ),
-                    Expanded(child: Container()),
+                    SizedBox(height: 10),
                     Stack(
                       children: [
                         Positioned(
                           child: BlurryContainer(
                             width: MediaQuery.of(context).size.width,
-                            height: 595,
+                            height: (230 + 100 * choices.length).toDouble(),
                             borderRadius: BorderRadius.circular(35),
                             color: MyColors.blue,
                             child: Column(
                               children: [
-                                SizedBox(height: 125),
+                                SizedBox(height: 115),
+                                Row(
+                                  children: [
+                                    InkWell(child: MyIcons.arrowleft()),
+                                    Expanded(child: Container()),
+                                    InkWell(
+                                        child: RotatedBox(
+                                            quarterTurns: 2,
+                                            child: MyIcons.arrowleft())),
+                                  ], //children
+                                ),
                                 BlurryContainer(
+                                  elevation: 10,
+                                  blur: 40,
                                   borderRadius: BorderRadius.circular(35),
-                                  width: 295,
+                                  width: double.infinity,
                                   height: 95,
                                   color: MyColors.yellow.withOpacity(0.45),
                                   padding: EdgeInsets.all(15),
-                                  child: Center(
+                                  child: Align(
+                                    alignment: Alignment.center,
                                     child: Text(
-                                      "What is the definition of health according to the WHO?",
+                                      questionStr,
                                       style: FontStyles.questions,
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                BlurryContainer(
-                                  width: 295,
-                                  height: 95,
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: MyColors.darkBlue.withOpacity(0.45),
-                                  child: Center(
-                                    child: Text(
-                                      "Health is a state of incomplete physical, well-being and merely the absence of disease or infirmity",
-                                      style: FontStyles.subs,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
                                 SizedBox(height: 5),
-                                BlurryContainer(
-                                  width: 295,
-                                  height: 95,
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: MyColors.darkBlue.withOpacity(0.45),
-                                  child: Center(
-                                    child: Text(
-                                      "Health is a state of incomplete physical, well-being and merely the absence of disease or infirmity",
-                                      style: FontStyles.subs,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                BlurryContainer(
-                                  width: 295,
-                                  height: 95,
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: MyColors.darkBlue.withOpacity(0.45),
-                                  child: Center(
-                                    child: Text(
-                                      "Health is a state of complete physical, mental and social well-being and not merely the absence of disease or infirmity",
-                                      style: FontStyles.subs,
-                                      textAlign: TextAlign.center,
-                                    ),
+                                Expanded(
+                                  child: ListView(
+                                    padding:
+                                        EdgeInsets.fromLTRB(10, 10, 10, 20),
+                                    children: [
+                                      Column(
+                                        children: choices
+                                            .map((e) => Column(children: [
+                                                  SizedBox(height: 10),
+                                                  BlurryContainer(
+                                                    width: double.infinity,
+                                                    height: 95,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            35),
+                                                    color: MyColors.darkBlue
+                                                        .withOpacity(0.45),
+                                                    child: Center(
+                                                      child: Text(
+                                                        e,
+                                                        style: FontStyles.subs,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]))
+                                            .toList(),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -173,62 +167,15 @@ class _QPageState extends State<QPage> {
                                       "Knowledge !",
                                       style: FontStyles.bigtitle,
                                     ),
-                                    SizedBox(width: 45),
                                   ],
                                 ),
-                                SizedBox(width: 15),
                               ],
                             ),
                           ),
                         ),
                       ],
                     ),
-                    Expanded(child: Container()),
-                    BottomNavigationBar(
-                      elevation: 0,
-                      backgroundColor: MyColors.black.withAlpha(0),
-                      showSelectedLabels: false,
-                      showUnselectedLabels: false,
-                      items: [
-                        BottomNavigationBarItem(
-                          icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()),
-                              );
-                            },
-                            child: MyIcons.home(),
-                          ),
-                          label: 'Home',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SearchPage()),
-                                );
-                              },
-                              child: MyIcons.search()),
-                          label: 'Search',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SettingsPage()),
-                                );
-                              },
-                              child: MyIcons.settingslc()),
-                          label: 'Settings',
-                        ),
-                      ],
-                    ),
+                    BottomNav()
                   ],
                 ),
               ),

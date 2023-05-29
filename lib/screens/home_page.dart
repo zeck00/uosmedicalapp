@@ -1,12 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:flutter_application_1/screens/profile_page.dart';
 import 'package:flutter_application_1/screens/question_page.dart';
 import 'search_page.dart';
-import 'setttings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,8 +18,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Map> _questions = [];
+  bool _questionsRead = false;
+
+  Future<void> readJson() async {
+    setState(() {
+      _questionsRead = true;
+    });
+
+    final String response =
+        await rootBundle.loadString('assets/data/questions.json');
+    // print(response);
+    final List<Map> data =
+        (await json.decode(response) as List).map((e) => e as Map).toList();
+    // print("data.toString()");
+    // print(data);
+
+    setState(() {
+      _questions = data;
+    });
+  }
+
+  String getQuestionText(Map<String, dynamic> jsonMap) {
+    String questionText = jsonMap['question'].toString();
+    return questionText;
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!_questionsRead) {
+      readJson();
+    }
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -36,22 +67,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      MyIcons.hs(),
-                      Expanded(child: Container()),
-                      InkWell(
-                        child: MyIcons.ppicon(),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ProfilePage()),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                  TopBar(),
                   const SizedBox(height: 30),
                   BlurryContainer(
                     blur: 100,
@@ -162,124 +178,43 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Expanded(child: Container()),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const QPage()),
-                                  );
-                                },
-                                child: MyIcons.arrowcircle(),
-                              ),
+                              _questions.isNotEmpty
+                                  ? InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => QPage(
+                                                  question: _questions[0])),
+                                        );
+                                      },
+                                      child: MyIcons.arrowcircle(),
+                                    )
+                                  : Container(),
                             ],
                           ),
                           const SizedBox(height: 15),
                           BlurryContainer(
                             blur: 100,
                             width: MediaQuery.of(context).size.width,
-                            height: 175,
+                            height: 250,
                             color: MyColors.yellow.withOpacity(0.35),
                             borderRadius: BorderRadius.circular(35),
                             elevation: 10,
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                "Health is a state of complete physical, mental and social well-being and not merely the absence of disease or infirmity",
+                                "Hello",
                                 style: FontStyles.questions,
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Add your onPressed action here
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            35) // Set rounded corner radius
-                                        ),
-                                    backgroundColor: MyColors.green,
-                                    minimumSize: const Size(120, 45)),
-                                child: const Text(
-                                  'True',
-                                  style: FontStyles
-                                      .button, // Set text color to white
-                                ),
-                              ),
-                              const SizedBox(width: 29),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Add your onPressed action here
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            35) // Set rounded corner radius
-                                        ),
-                                    backgroundColor: MyColors.pink,
-                                    minimumSize: const Size(120, 45)),
-                                child: const Text(
-                                  'False',
-                                  style: FontStyles
-                                      .button, // Set text color to white
-                                ),
-                              ),
-                            ],
                           ),
                         ],
                       ),
                     ),
                   ),
                   Expanded(child: Container()),
-                  BottomNavigationBar(
-                    elevation: 0,
-                    backgroundColor: MyColors.black.withAlpha(0),
-                    showSelectedLabels: false,
-                    showUnselectedLabels: false,
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()),
-                            );
-                          },
-                          child: MyIcons.homeslc(),
-                        ),
-                        label: 'Home',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SearchPage()),
-                              );
-                            },
-                            child: MyIcons.search()),
-                        label: 'Search',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SettingsPage()),
-                              );
-                            },
-                            child: MyIcons.settings()),
-                        label: 'Settings',
-                      ),
-                    ],
-                  )
+                  BottomNav(),
                 ],
               ),
             ),
