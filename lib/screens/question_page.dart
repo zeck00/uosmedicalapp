@@ -20,8 +20,6 @@ class _QPageState extends State<QPage> {
   int _currentQIdx = 0;
 
   void nextQuestion() {
-    if (!(_currentQIdx >= 0)) return;
-
     int newIndex = _currentQIdx + 1;
     if (newIndex >= widget.questions.length) return;
 
@@ -33,8 +31,6 @@ class _QPageState extends State<QPage> {
   }
 
   void prevQuestion() {
-    if (!(_currentQIdx >= 0)) return;
-
     int newIndex = _currentQIdx - 1;
     if (newIndex < 0) return;
 
