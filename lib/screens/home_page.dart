@@ -184,8 +184,8 @@ class _HomePageState extends State<HomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => QPage(
-                                                  question: _questions[0])),
+                                              builder: (context) =>
+                                                  QPage(questions: _questions)),
                                         );
                                       },
                                       child: MyIcons.arrowcircle(),

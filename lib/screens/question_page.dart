@@ -8,20 +8,50 @@ import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
 
 class QPage extends StatefulWidget {
-  final Map question;
-  const QPage({super.key, required this.question});
+  final List<Map> questions;
+
+  const QPage({super.key, required this.questions});
 
   @override
   State<QPage> createState() => _QPageState();
 }
 
 class _QPageState extends State<QPage> {
+  int _currentQIdx = 0;
+
+  void nextQuestion() {
+    if (!(_currentQIdx >= 0)) return;
+
+    int newIndex = _currentQIdx + 1;
+    if (newIndex >= widget.questions.length) return;
+
+    // print("Go to next question: $newIndex");
+
+    setState(() {
+      _currentQIdx = newIndex;
+    });
+  }
+
+  void prevQuestion() {
+    if (!(_currentQIdx >= 0)) return;
+
+    int newIndex = _currentQIdx - 1;
+    if (newIndex < 0) return;
+
+    // print("Go to previous question: $newIndex");
+
+    setState(() {
+      _currentQIdx = newIndex;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String questionStr = widget.question["question"];
+    var question = widget.questions[_currentQIdx];
+    final String questionStr = question["question"];
     final List<String> choices =
-        (widget.question["choices"] as List).map((e) => e as String).toList();
-    var answerIndex = widget.question["answer_index"];
+        (question["choices"] as List).map((e) => e as String).toList();
+    var answerIndex = question["answer_index"];
     final bool multiChoice = answerIndex is! int;
     if (multiChoice) {
       answerIndex = (answerIndex as List).map((e) => e as int).toList();
@@ -77,9 +107,12 @@ class _QPageState extends State<QPage> {
                                 SizedBox(height: 115),
                                 Row(
                                   children: [
-                                    InkWell(child: MyIcons.arrowleft()),
+                                    InkWell(
+                                        onTap: prevQuestion,
+                                        child: MyIcons.arrowleft()),
                                     Expanded(child: Container()),
                                     InkWell(
+                                        onTap: nextQuestion,
                                         child: RotatedBox(
                                             quarterTurns: 2,
                                             child: MyIcons.arrowleft())),
