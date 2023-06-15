@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  String getQuestionText(Map<String, dynamic> jsonMap) {
+  String getQuestionText(Map jsonMap) {
     String questionText = jsonMap['question'].toString();
     return questionText;
   }
@@ -203,7 +203,9 @@ class _HomePageState extends State<HomePage> {
                             elevation: 10,
                             child: Center(
                               child: Text(
-                                "Hello",
+                                _questions.isNotEmpty
+                                    ? getQuestionText(_questions[0])
+                                    : "Loading questions...",
                                 style: FontStyles.questions,
                                 textAlign: TextAlign.center,
                               ),
