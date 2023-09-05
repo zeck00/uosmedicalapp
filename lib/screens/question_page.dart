@@ -7,21 +7,40 @@ import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
 
-class QPage extends StatefulWidget {
-  final List<Map> questions;
+import '../services/question_manager.dart';
 
-  const QPage({super.key, required this.questions});
+class QPage extends StatefulWidget {
+  const QPage({super.key});
 
   @override
   State<QPage> createState() => _QPageState();
 }
 
 class _QPageState extends State<QPage> {
+  QuestMgr? _questMgr;
   int _currentQIdx = 0;
 
+  String? get questionStr => _questMgr?.getQuestion(_currentQIdx);
+  List<String>? get choices => _questMgr?.getQuestionChoices(_currentQIdx);
+
+  createQuestMgrInstance() async {
+    if (_questMgr != null) {
+      return;
+    }
+
+    var questMgr = await QuestMgr.createSingleton();
+    setState(() {
+      _questMgr = questMgr;
+    });
+  }
+
+  int get choiceNum => choices == null ? 0 : choices!.length;
+
   void nextQuestion() {
+    assert(_questMgr != null);
+
     int newIndex = _currentQIdx + 1;
-    if (newIndex >= widget.questions.length) return;
+    if (newIndex >= _questMgr!.questionNum) return;
 
     // print("Go to next question: $newIndex");
 
@@ -31,6 +50,8 @@ class _QPageState extends State<QPage> {
   }
 
   void prevQuestion() {
+    assert(_questMgr != null);
+
     int newIndex = _currentQIdx - 1;
     if (newIndex < 0) return;
 
@@ -43,16 +64,7 @@ class _QPageState extends State<QPage> {
 
   @override
   Widget build(BuildContext context) {
-    var question = widget.questions[_currentQIdx];
-    final String questionStr = question["question"];
-    final List<String> choices =
-        (question["choices"] as List).map((e) => e as String).toList();
-    var answerIndex = question["answer_index"];
-    final bool multiChoice = answerIndex is! int;
-    if (multiChoice) {
-      answerIndex = (answerIndex as List).map((e) => e as int).toList();
-    }
-
+    createQuestMgrInstance();
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -95,7 +107,7 @@ class _QPageState extends State<QPage> {
                         Positioned(
                           child: BlurryContainer(
                             width: MediaQuery.of(context).size.width,
-                            height: (230 + 100 * choices.length).toDouble(),
+                            height: (230 + 100 * choiceNum).toDouble(),
                             borderRadius: BorderRadius.circular(35),
                             color: MyColors.blue,
                             child: Column(
@@ -125,7 +137,9 @@ class _QPageState extends State<QPage> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      questionStr,
+                                      questionStr != null
+                                          ? questionStr!
+                                          : "Loading question...",
                                       style: FontStyles.questions,
                                       textAlign: TextAlign.center,
                                     ),
@@ -137,30 +151,37 @@ class _QPageState extends State<QPage> {
                                     padding:
                                         EdgeInsets.fromLTRB(10, 10, 10, 20),
                                     children: [
-                                      Column(
-                                        children: choices
-                                            .map((e) => Column(children: [
-                                                  SizedBox(height: 10),
-                                                  BlurryContainer(
-                                                    width: double.infinity,
-                                                    height: 95,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            35),
-                                                    color: MyColors.darkBlue
-                                                        .withOpacity(0.45),
-                                                    child: Center(
-                                                      child: Text(
-                                                        e,
-                                                        style: FontStyles.subs,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ]))
-                                            .toList(),
-                                      ),
+                                      choices != null
+                                          ? Column(
+                                              children: choices!
+                                                  .map((e) => Column(children: [
+                                                        SizedBox(height: 10),
+                                                        BlurryContainer(
+                                                          width:
+                                                              double.infinity,
+                                                          height: 95,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(35),
+                                                          color: MyColors
+                                                              .darkBlue
+                                                              .withOpacity(
+                                                                  0.45),
+                                                          child: Center(
+                                                            child: Text(
+                                                              e,
+                                                              style: FontStyles
+                                                                  .subs,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ]))
+                                                  .toList(),
+                                            )
+                                          : const Column(),
                                     ],
                                   ),
                                 ),
@@ -177,10 +198,10 @@ class _QPageState extends State<QPage> {
                             color: MyColors.blue.withOpacity(0.45),
                             blur: 100,
                             child: Column(
-                              children: [
+                              children: const [
                                 SizedBox(height: 15),
                                 Row(
-                                  children: const [
+                                  children: [
                                     SizedBox(width: 25),
                                     Text(
                                       "Let's Test Your",
@@ -190,7 +211,7 @@ class _QPageState extends State<QPage> {
                                   ],
                                 ),
                                 Row(
-                                  children: const [
+                                  children: [
                                     SizedBox(width: 45),
                                     Text(
                                       "Knowledge !",

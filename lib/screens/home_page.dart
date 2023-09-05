@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_application_1/screens/question_page.dart';
+import 'package:flutter_application_1/services/question_manager.dart';
 import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,37 +17,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map> _questions = [];
-  bool _questionsRead = false;
+  QuestMgr? _questMgr;
 
-  Future<void> readJson() async {
+  createQuestMgrInstance() async {
+    if (_questMgr != null) {
+      return;
+    }
+
+    var questMgr = await QuestMgr.createSingleton();
     setState(() {
-      _questionsRead = true;
+      _questMgr = questMgr;
     });
-
-    final String response =
-        await rootBundle.loadString('assets/data/questions.json');
-    // print(response);
-    final List<Map> data =
-        (await json.decode(response) as List).map((e) => e as Map).toList();
-    // print("data.toString()");
-    // print(data);
-
-    setState(() {
-      _questions = data;
-    });
-  }
-
-  String getQuestionText(Map jsonMap) {
-    String questionText = jsonMap['question'].toString();
-    return questionText;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_questionsRead) {
-      readJson();
-    }
+    createQuestMgrInstance();
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -178,14 +162,13 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Expanded(child: Container()),
-                              _questions.isNotEmpty
+                              _questMgr != null
                                   ? InkWell(
                                       onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  QPage(questions: _questions)),
+                                              builder: (context) => QPage()),
                                         );
                                       },
                                       child: MyIcons.arrowcircle(),
@@ -203,8 +186,8 @@ class _HomePageState extends State<HomePage> {
                             elevation: 10,
                             child: Center(
                               child: Text(
-                                _questions.isNotEmpty
-                                    ? getQuestionText(_questions[0])
+                                _questMgr != null
+                                    ? _questMgr!.getQuestion(0)
                                     : "Loading questions...",
                                 style: FontStyles.questions,
                                 textAlign: TextAlign.center,
