@@ -76,9 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Row(
-                            children: const [
+                            children: [
                               Text(
                                 "Your Email",
                                 style: FontStyles.settings,
@@ -108,9 +108,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Row(
-                            children: const [
+                            children: [
                               Text(
                                 "2nd Email",
                                 style: FontStyles.settings,
@@ -140,9 +140,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Row(
-                            children: const [
+                            children: [
                               Text(
                                 "2FA Method",
                                 style: FontStyles.settings,
