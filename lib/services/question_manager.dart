@@ -1,6 +1,7 @@
 library question_manager;
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
@@ -39,12 +40,16 @@ class QuestMgr {
   }
 
   Future<Map> _getQuestion(int index) async {
-    assert(0 <= index && index < await _questionNum);
-    return (await _questions)[_questionIndexMap[index]];
+    List<Map> questions = await _questions;
+    assert(0 <= index && index < questions.length);
+    return questions[_questionIndexMap[index]];
   }
 
+  Future<List> _getQuestionChoices(int index) async =>
+      (await _getQuestion(index))["choices"] as List;
+
   Future<int> _getQuestionChoiceNum(int index) async =>
-      ((await _getQuestion(index))["choices"] as List).length;
+      (await _getQuestionChoices(index)).length;
 
   _initializeQuestionAnswerIndexMap() async {
     int questionNum = await _questionNum;
@@ -101,7 +106,7 @@ class QuestMgr {
       }
       List<int> choiceIndices = List.generate(
           choices.length,
-              (answerIndex) =>
+          (answerIndex) =>
               getQuestionChoiceIndex(questionStr, choices[answerIndex]));
       bool correct = await checkQuestionChoices(questionIndex, choiceIndices);
       if (correct) {
@@ -169,25 +174,41 @@ class QuestMgr {
     // await _doUnitTesting();
   }
 
-  Future<int> getQuestionNum() async => _questionNum;
+  final _random = Random();
 
-  Future<String> getQuestion(int index) async =>
-      (await _getQuestion(index))["question"];
+  _simulateLatency() async =>
+      await Future.delayed(Duration(seconds: 1 + _random.nextInt(3 - 1)));
 
-  Future<int> getQuestionChoiceNum(int index) async =>
-      _getQuestionChoiceNum(index);
+  Future<int> getQuestionNum() async {
+    await _simulateLatency();
+    return _questionNum;
+  }
+
+  Future<String> getQuestion(int index) async {
+    await _simulateLatency();
+    return (await _getQuestion(index))["question"];
+  }
+
+  Future<int> getQuestionChoiceNum(int index) async {
+    await _simulateLatency();
+    return _getQuestionChoiceNum(index);
+  }
 
   Future<List<String>> getQuestionChoices(int index) async {
-    List<String> questionChoices =
-        List<String>.from((await _getQuestion(index))["choices"]);
+    await _simulateLatency();
+
+    List questionChoices = await _getQuestionChoices(index);
 
     return List.generate(
         questionChoices.length,
         (answerIndex) =>
-            questionChoices[_questionAnswerIndexMap[index][answerIndex]]);
+            questionChoices[_questionAnswerIndexMap[index][answerIndex]]
+                as String);
   }
 
   Future<bool> checkQuestionChoices(int index, List<int> choiceIndices) async {
+    await _simulateLatency();
+
     var correctAnswerIndex = (await _getQuestion(index))["answer_index"];
     if (correctAnswerIndex is int) {
       return choiceIndices.length == 1 &&
