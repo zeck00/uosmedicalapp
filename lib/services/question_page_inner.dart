@@ -80,7 +80,7 @@ class _QPageInnerState extends State<QPageInner> {
   FutureBuilder<String> get _questionStrText {
     int currentQIdx = widget.currentQIdx;
     return QPageInner.getQuestionStrFutureText(
-        _questionStr, "Loading question {$currentQIdx}...");
+        _questionStr, "Loading question ${currentQIdx + 1}...");
   }
 
   BlurryContainer get _questionStrBlurryContainer => BlurryContainer(
