@@ -62,9 +62,111 @@ class QuestMgr {
     _questionAnswerIndexMap = questionAnswerIndexMap.cast<List<int>>();
   }
 
+  _doUnitTesting() async {
+    int questionNum = await getQuestionNum();
+
+    List<String?> questions = List.generate(questionNum, (index) => null);
+    Map<String, List<String>> questionChoices = {};
+
+    print("Questions available:");
+
+    if (questionNum > 0) {
+      for (int index = 0; index < questionNum; index++) {
+        String questionStr = await getQuestion(index);
+        questions[index] = questionStr;
+
+        List<String> choices = await getQuestionChoices(index);
+        questionChoices[questionStr] = choices;
+
+        print("${index + 1}. $questionStr");
+        for (String choice in choices) {
+          print("    * $choice");
+        }
+      }
+    } else {
+      print("None");
+    }
+
+    int getQuestionChoiceIndex(String questionStr, String choice) {
+      return questionChoices[questionStr]!.indexOf(choice);
+    }
+
+    validate(
+        int questionIndex, String questionStr, List<String> choices) async {
+      print(
+          "Question \"$questionStr\" should have the following correct choices:");
+      for (String choice in choices) {
+        print(
+            "    * \"$choice\", index ${getQuestionChoiceIndex(questionStr, choice)}");
+      }
+      List<int> choiceIndices = List.generate(
+          choices.length,
+              (answerIndex) =>
+              getQuestionChoiceIndex(questionStr, choices[answerIndex]));
+      bool correct = await checkQuestionChoices(questionIndex, choiceIndices);
+      if (correct) {
+        print("Well, they are correct!");
+      } else {
+        print("They are incorrect! Please panic and run around in circles!!");
+      }
+    }
+
+    // Correct choices
+    print("Testing correct choices...");
+    for (int index = 0; index < questionNum; index++) {
+      String questionStr = questions[index]!;
+      late List<String> choices;
+      if (questionStr == "What is 1 + 1?") {
+        choices = ["2"];
+      } else if (questionStr == "Who developed this application?") {
+        choices = ["Abood", "Zack00"];
+      } else if (questionStr == "Please choose \"Choice 4\".") {
+        choices = ["Choice 4"];
+      } else {
+        choices = [];
+      }
+      await validate(index, questionStr, choices);
+    }
+
+    // Partially correct choices
+    print("Testing partially correct choices...");
+    for (int index = 0; index < questionNum; index++) {
+      String questionStr = questions[index]!;
+      late List<String> choices;
+      if (questionStr == "What is 1 + 1?") {
+        choices = ["2", "3"];
+      } else if (questionStr == "Who developed this application?") {
+        choices = ["Abood"];
+      } else if (questionStr == "Please choose \"Choice 4\".") {
+        choices = [];
+      } else {
+        choices = [];
+      }
+      await validate(index, questionStr, choices);
+    }
+
+    // Incorrect choices
+    print("Testing incorrect choices...");
+    for (int index = 0; index < questionNum; index++) {
+      String questionStr = questions[index]!;
+      late List<String> choices;
+      if (questionStr == "What is 1 + 1?") {
+        choices = ["3", "4"];
+      } else if (questionStr == "Who developed this application?") {
+        choices = ["My neighbour"];
+      } else if (questionStr == "Please choose \"Choice 4\".") {
+        choices = ["Choice 2"];
+      } else {
+        choices = [];
+      }
+      await validate(index, questionStr, choices);
+    }
+  }
+
   _initialize() async {
     await _initializeQuestionIndexMap();
     await _initializeQuestionAnswerIndexMap();
+    // await _doUnitTesting();
   }
 
   Future<int> getQuestionNum() async => _questionNum;
