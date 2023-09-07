@@ -21,7 +21,7 @@ enum _HasQuestions { notLoaded, no, yes }
 
 class _HomePageState extends State<HomePage> {
   _HasQuestions _hasQuestions = _HasQuestions.notLoaded;
-  late Future<String> _firstQuestion;
+  late String _firstQuestion;
 
   loadFirstQuestion() async {
     if (_hasQuestions != _HasQuestions.notLoaded) {
@@ -31,8 +31,9 @@ class _HomePageState extends State<HomePage> {
     QuestMgr questMgr = await QuestMgr.createSingleton();
 
     if ((await questMgr.getQuestionNum()) > 0) {
+      String firstQuestion = await questMgr.getQuestion(0);
       setState(() {
-        _firstQuestion = questMgr.getQuestion(0);
+        _firstQuestion = firstQuestion;
         _hasQuestions = _HasQuestions.yes;
       });
     } else {
@@ -201,9 +202,8 @@ class _HomePageState extends State<HomePage> {
                                   ? QPageInner.getQuestionStrText(
                                       "Loading questions...")
                                   : (_hasQuestions == _HasQuestions.yes
-                                      ? QPageInner.getQuestionStrFutureText(
-                                          _firstQuestion,
-                                          "Loading questions...")
+                                      ? QPageInner.getQuestionStrText(
+                                          _firstQuestion)
                                       : QPageInner.getQuestionStrText(
                                           "No questions available.")),
                             ),
