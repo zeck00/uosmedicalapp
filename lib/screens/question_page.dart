@@ -19,17 +19,19 @@ class QPage extends StatefulWidget {
 
 class _QPageState extends State<QPage> {
   QuestMgr? _questMgr;
+  late final int _questionNum;
   late int _currentQIdx;
 
   createQuestMgrInstance() async {
     assert(_questMgr == null);
 
     QuestMgr questMgr = await QuestMgr.createSingleton();
-    int currentQIdx = (await questMgr.getQuestionNum()) > 0 ? 0 : -1;
+    int questionNum = await questMgr.getQuestionNum();
 
     setState(() {
       _questMgr = questMgr;
-      _currentQIdx = currentQIdx;
+      _questionNum = questionNum;
+      _currentQIdx = 0;
     });
   }
 
@@ -39,12 +41,12 @@ class _QPageState extends State<QPage> {
     createQuestMgrInstance();
   }
 
-  void _nextQuestion() async {
+  void _nextQuestion() {
     assert(_questMgr != null);
-    if (_currentQIdx == -1) return;
+    if (!(_questionNum > 0)) return;
 
     int newIndex = _currentQIdx + 1;
-    if (newIndex >= await _questMgr!.getQuestionNum()) return;
+    if (newIndex >= _questionNum) return;
 
     // print("Go to next question: $newIndex");
 
@@ -55,7 +57,7 @@ class _QPageState extends State<QPage> {
 
   void _prevQuestion() {
     assert(_questMgr != null);
-    if (_currentQIdx == -1) return;
+    if (!(_questionNum > 0)) return;
 
     int newIndex = _currentQIdx - 1;
     if (newIndex < 0) return;
@@ -109,7 +111,7 @@ class _QPageState extends State<QPage> {
                     Stack(
                       children: [
                         Positioned(
-                          child: _questMgr != null && _currentQIdx != -1
+                          child: _questMgr != null && _questionNum > 0
                               ? QPageInner(
                                   questMgr: _questMgr!,
                                   currentQIdx: _currentQIdx,
