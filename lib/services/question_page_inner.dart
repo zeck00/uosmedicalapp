@@ -7,14 +7,12 @@ import '../screens/myfonts.dart';
 import '../screens/myicons.dart';
 
 class QPageInner extends StatefulWidget {
-  final QuestMgr questMgr;
   final int currentQIdx;
   final void Function() prevQuestion;
   final void Function() nextQuestion;
 
   const QPageInner(
       {Key? key,
-      required this.questMgr,
       required this.currentQIdx,
       required this.prevQuestion,
       required this.nextQuestion})
@@ -64,11 +62,13 @@ class _QPageInnerState extends State<QPageInner> {
   late Future<List<String>> _choices;
   int _currentQIdx = -1;
 
-  _reloadQuestion() {
+  _reloadQuestion() /* async */ {
     int currentQIdx = widget.currentQIdx;
     if (_currentQIdx == currentQIdx) return;
 
-    QuestMgr questMgr = widget.questMgr;
+    /* QuestMgr questMgr = await QuestMgr.createSingleton(); */
+    // QuestMgr should have already been created by the time QPage is
+    QuestMgr questMgr = QuestMgr.instance()!;
 
     setState(() {
       _questionStr = questMgr.getQuestion(currentQIdx);

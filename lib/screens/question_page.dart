@@ -8,45 +8,26 @@ import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
 import 'package:flutter_application_1/services/question_page_inner.dart';
 
-import '../services/question_manager.dart';
-
 class QPage extends StatefulWidget {
-  const QPage({super.key});
+  final int questionNum;
+
+  QPage({super.key, required this.questionNum}) {
+    assert(questionNum > 0);
+  }
 
   @override
   State<QPage> createState() => _QPageState();
 }
 
 class _QPageState extends State<QPage> {
-  QuestMgr? _questMgr;
-  late final int _questionNum;
-  late int _currentQIdx;
-
-  createQuestMgrInstance() async {
-    assert(_questMgr == null);
-
-    QuestMgr questMgr = await QuestMgr.createSingleton();
-    int questionNum = await questMgr.getQuestionNum();
-
-    setState(() {
-      _questMgr = questMgr;
-      _questionNum = questionNum;
-      _currentQIdx = 0;
-    });
-  }
-
-  @override
-  initState() {
-    super.initState();
-    createQuestMgrInstance();
-  }
+  int _currentQIdx = 0;
 
   void _nextQuestion() {
-    assert(_questMgr != null);
-    if (!(_questionNum > 0)) return;
+    int questionNum = widget.questionNum;
+    if (!(questionNum > 0)) return;
 
     int newIndex = _currentQIdx + 1;
-    if (newIndex >= _questionNum) return;
+    if (newIndex >= questionNum) return;
 
     // print("Go to next question: $newIndex");
 
@@ -56,8 +37,8 @@ class _QPageState extends State<QPage> {
   }
 
   void _prevQuestion() {
-    assert(_questMgr != null);
-    if (!(_questionNum > 0)) return;
+    int questionNum = widget.questionNum;
+    if (!(questionNum > 0)) return;
 
     int newIndex = _currentQIdx - 1;
     if (newIndex < 0) return;
@@ -111,13 +92,10 @@ class _QPageState extends State<QPage> {
                     Stack(
                       children: [
                         Positioned(
-                          child: _questMgr != null && _questionNum > 0
-                              ? QPageInner(
-                                  questMgr: _questMgr!,
+                          child: QPageInner(
                                   currentQIdx: _currentQIdx,
                                   prevQuestion: _prevQuestion,
-                                  nextQuestion: _nextQuestion)
-                              : SizedBox.shrink(),
+                                  nextQuestion: _nextQuestion),
                         ),
                         Positioned(
                           child: BlurryContainer(

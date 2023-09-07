@@ -21,6 +21,7 @@ enum _HasQuestions { notLoaded, no, yes }
 
 class _HomePageState extends State<HomePage> {
   _HasQuestions _hasQuestions = _HasQuestions.notLoaded;
+  late int _questionNum;
   late String _firstQuestion;
 
   loadFirstQuestion() async {
@@ -29,16 +30,19 @@ class _HomePageState extends State<HomePage> {
     }
 
     QuestMgr questMgr = await QuestMgr.createSingleton();
+    int questionNum = await questMgr.getQuestionNum();
 
-    if ((await questMgr.getQuestionNum()) > 0) {
+    if (questionNum > 0) {
       String firstQuestion = await questMgr.getQuestion(0);
       setState(() {
-        _firstQuestion = firstQuestion;
         _hasQuestions = _HasQuestions.yes;
+        _questionNum = questionNum;
+        _firstQuestion = firstQuestion;
       });
     } else {
       setState(() {
         _hasQuestions = _HasQuestions.no;
+        _questionNum = 0;
       });
     }
   }
@@ -181,7 +185,8 @@ class _HomePageState extends State<HomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => QPage()),
+                                              builder: (context) => QPage(
+                                                  questionNum: _questionNum)),
                                         );
                                       },
                                       child: MyIcons.arrowcircle(),
