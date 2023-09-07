@@ -7,6 +7,7 @@ import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_application_1/screens/question_page.dart';
 import 'package:flutter_application_1/services/question_manager.dart';
+import 'package:flutter_application_1/services/question_page_inner.dart';
 import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,23 +17,34 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  QuestMgr? _questMgr;
+enum _HasQuestions { notLoaded, no, yes }
 
-  createQuestMgrInstance() async {
-    if (_questMgr != null) {
+class _HomePageState extends State<HomePage> {
+  _HasQuestions _hasQuestions = _HasQuestions.notLoaded;
+  late Future<String> _firstQuestion;
+
+  loadFirstQuestion() async {
+    if (_hasQuestions != _HasQuestions.notLoaded) {
       return;
     }
 
-    var questMgr = await QuestMgr.createSingleton();
-    setState(() {
-      _questMgr = questMgr;
-    });
+    QuestMgr questMgr = await QuestMgr.createSingleton();
+
+    if ((await questMgr.getQuestionNum()) > 0) {
+      setState(() {
+        _firstQuestion = questMgr.getQuestion(0);
+        _hasQuestions = _HasQuestions.yes;
+      });
+    } else {
+      setState(() {
+        _hasQuestions = _HasQuestions.no;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    createQuestMgrInstance();
+    loadFirstQuestion();
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -162,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Expanded(child: Container()),
-                              _questMgr != null
+                              _hasQuestions == _HasQuestions.yes
                                   ? InkWell(
                                       onTap: () {
                                         Navigator.push(
@@ -173,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: MyIcons.arrowcircle(),
                                     )
-                                  : Container(),
+                                  : SizedBox.shrink(),
                             ],
                           ),
                           const SizedBox(height: 15),
@@ -185,13 +197,15 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(35),
                             elevation: 10,
                             child: Center(
-                              child: Text(
-                                _questMgr != null
-                                    ? _questMgr!.getQuestion(0)
-                                    : "Loading questions...",
-                                style: FontStyles.questions,
-                                textAlign: TextAlign.center,
-                              ),
+                              child: _hasQuestions == _HasQuestions.notLoaded
+                                  ? QPageInner.getQuestionStrText(
+                                      "Loading questions...")
+                                  : (_hasQuestions == _HasQuestions.yes
+                                      ? QPageInner.getQuestionStrFutureText(
+                                          _firstQuestion,
+                                          "Loading questions...")
+                                      : QPageInner.getQuestionStrText(
+                                          "No questions available.")),
                             ),
                           ),
                         ],

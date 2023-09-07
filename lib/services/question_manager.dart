@@ -23,57 +23,61 @@ class QuestMgr {
     return _sInstance as QuestMgr;
   }
 
-  static QuestMgr? instance() {
-    return _sInstance;
-  }
+  static QuestMgr? instance() => _sInstance;
 
-  late List<Map> _questions;
+  Future<List<Map>> get _questions async => List<Map>.from(await json
+      .decode(await rootBundle.loadString('assets/data/questions.json')));
+
   late List<int> _questionIndexMap;
   late List<List<int>> _questionAnswerIndexMap;
 
-  get questionNum => _questions.length;
+  Future<int> get _questionNum async => (await _questions).length;
+
+  _initializeQuestionIndexMap() async {
+    _questionIndexMap = List.generate(await _questionNum, (index) => index);
+    _questionIndexMap.shuffle();
+  }
+
+  Future<Map> _getQuestion(int index) async {
+    assert(0 <= index && index < await _questionNum);
+    return (await _questions)[_questionIndexMap[index]];
+  }
+
+  Future<int> _getQuestionChoiceNum(int index) async =>
+      ((await _getQuestion(index))["choices"] as List).length;
+
+  _initializeQuestionAnswerIndexMap() async {
+    int questionNum = await _questionNum;
+
+    List<List<int>?> questionAnswerIndexMap =
+        List<List<int>?>.generate(questionNum, (index) => null);
+
+    for (int index = 0; index < questionNum; index++) {
+      var list = List.generate(
+          await _getQuestionChoiceNum(index), (answerIndex) => answerIndex);
+      list.shuffle();
+      questionAnswerIndexMap[index] = list;
+    }
+
+    _questionAnswerIndexMap = questionAnswerIndexMap.cast<List<int>>();
+  }
 
   _initialize() async {
-    final String response =
-        await rootBundle.loadString('assets/data/questions.json');
-    // print(response);
-    final List<Map> data =
-        (await json.decode(response) as List).map((e) => e as Map).toList();
-    // print("data.toString()");
-    // print(data);
-
-    // print("Wait start");
-    // await Future.delayed(const Duration(seconds: 5));
-    // print("Wait done");
-
-    _questions = data;
-
-    _questionIndexMap = List.generate(questionNum, (index) => index);
-    _questionIndexMap.shuffle();
-
-    _questionAnswerIndexMap = List.generate(
-        questionNum,
-        (index) => List.generate(
-            (_questions[_questionIndexMap[index]]["choices"] as List).length,
-            (answerIndex) => answerIndex));
-
-    for (var list in _questionAnswerIndexMap) {
-      list.shuffle();
-    }
+    await _initializeQuestionIndexMap();
+    await _initializeQuestionAnswerIndexMap();
   }
 
-  _getQuestion(int index) {
-    assert(0 <= index && index < questionNum);
-    return _questions[_questionIndexMap[index]];
-  }
+  Future<int> getQuestionNum() async => _questionNum;
 
-  String getQuestion(int index) {
-    return _getQuestion(index)["question"];
-  }
+  Future<String> getQuestion(int index) async =>
+      (await _getQuestion(index))["question"];
 
-  List<String> getQuestionChoices(int index) {
+  Future<int> getQuestionChoiceNum(int index) async =>
+      _getQuestionChoiceNum(index);
+
+  Future<List<String>> getQuestionChoices(int index) async {
     List<String> questionChoices =
-        List<String>.from(_getQuestion(index)["choices"]);
+        List<String>.from((await _getQuestion(index))["choices"]);
 
     return List.generate(
         questionChoices.length,
@@ -81,8 +85,8 @@ class QuestMgr {
             questionChoices[_questionAnswerIndexMap[index][answerIndex]]);
   }
 
-  bool checkQuestionChoices(int index, List<int> choiceIndices) {
-    var correctAnswerIndex = _getQuestion(index)["answer_index"];
+  Future<bool> checkQuestionChoices(int index, List<int> choiceIndices) async {
+    var correctAnswerIndex = (await _getQuestion(index))["answer_index"];
     if (correctAnswerIndex is int) {
       return choiceIndices.length == 1 &&
           _questionAnswerIndexMap[index][choiceIndices[0]] ==

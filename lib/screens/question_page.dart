@@ -6,6 +6,7 @@ import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
+import 'package:flutter_application_1/services/question_page_inner.dart';
 
 import '../services/question_manager.dart';
 
@@ -18,29 +19,32 @@ class QPage extends StatefulWidget {
 
 class _QPageState extends State<QPage> {
   QuestMgr? _questMgr;
-  int _currentQIdx = 0;
-
-  String? get questionStr => _questMgr?.getQuestion(_currentQIdx);
-  List<String>? get choices => _questMgr?.getQuestionChoices(_currentQIdx);
+  late int _currentQIdx;
 
   createQuestMgrInstance() async {
-    if (_questMgr != null) {
-      return;
-    }
+    assert(_questMgr == null);
 
-    var questMgr = await QuestMgr.createSingleton();
+    QuestMgr questMgr = await QuestMgr.createSingleton();
+    int currentQIdx = (await questMgr.getQuestionNum()) > 0 ? 0 : -1;
+
     setState(() {
       _questMgr = questMgr;
+      _currentQIdx = currentQIdx;
     });
   }
 
-  int get choiceNum => choices == null ? 0 : choices!.length;
+  @override
+  initState() {
+    super.initState();
+    createQuestMgrInstance();
+  }
 
-  void nextQuestion() {
+  void _nextQuestion() async {
     assert(_questMgr != null);
+    if (_currentQIdx == -1) return;
 
     int newIndex = _currentQIdx + 1;
-    if (newIndex >= _questMgr!.questionNum) return;
+    if (newIndex >= await _questMgr!.getQuestionNum()) return;
 
     // print("Go to next question: $newIndex");
 
@@ -49,8 +53,9 @@ class _QPageState extends State<QPage> {
     });
   }
 
-  void prevQuestion() {
+  void _prevQuestion() {
     assert(_questMgr != null);
+    if (_currentQIdx == -1) return;
 
     int newIndex = _currentQIdx - 1;
     if (newIndex < 0) return;
@@ -64,7 +69,6 @@ class _QPageState extends State<QPage> {
 
   @override
   Widget build(BuildContext context) {
-    createQuestMgrInstance();
     return Scaffold(
       backgroundColor: MyColors.green,
       body: Container(
@@ -105,89 +109,13 @@ class _QPageState extends State<QPage> {
                     Stack(
                       children: [
                         Positioned(
-                          child: BlurryContainer(
-                            width: MediaQuery.of(context).size.width,
-                            height: (230 + 100 * choiceNum).toDouble(),
-                            borderRadius: BorderRadius.circular(35),
-                            color: MyColors.blue,
-                            child: Column(
-                              children: [
-                                SizedBox(height: 115),
-                                Row(
-                                  children: [
-                                    InkWell(
-                                        onTap: prevQuestion,
-                                        child: MyIcons.arrowleft()),
-                                    Expanded(child: Container()),
-                                    InkWell(
-                                        onTap: nextQuestion,
-                                        child: RotatedBox(
-                                            quarterTurns: 2,
-                                            child: MyIcons.arrowleft())),
-                                  ], //children
-                                ),
-                                BlurryContainer(
-                                  elevation: 10,
-                                  blur: 40,
-                                  borderRadius: BorderRadius.circular(35),
-                                  width: double.infinity,
-                                  height: 95,
-                                  color: MyColors.yellow.withOpacity(0.45),
-                                  padding: EdgeInsets.all(15),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      questionStr != null
-                                          ? questionStr!
-                                          : "Loading question...",
-                                      style: FontStyles.questions,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Expanded(
-                                  child: ListView(
-                                    padding:
-                                        EdgeInsets.fromLTRB(10, 10, 10, 20),
-                                    children: [
-                                      choices != null
-                                          ? Column(
-                                              children: choices!
-                                                  .map((e) => Column(children: [
-                                                        SizedBox(height: 10),
-                                                        BlurryContainer(
-                                                          width:
-                                                              double.infinity,
-                                                          height: 95,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(35),
-                                                          color: MyColors
-                                                              .darkBlue
-                                                              .withOpacity(
-                                                                  0.45),
-                                                          child: Center(
-                                                            child: Text(
-                                                              e,
-                                                              style: FontStyles
-                                                                  .subs,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ]))
-                                                  .toList(),
-                                            )
-                                          : const Column(),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          child: _questMgr != null && _currentQIdx != -1
+                              ? QPageInner(
+                                  questMgr: _questMgr!,
+                                  currentQIdx: _currentQIdx,
+                                  prevQuestion: _prevQuestion,
+                                  nextQuestion: _nextQuestion)
+                              : SizedBox.shrink(),
                         ),
                         Positioned(
                           child: BlurryContainer(
