@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     QuestMgr questMgr = await QuestMgr.createSingleton();
-    int questionNum = await questMgr.getQuestionNum();
+    int questionNum = questMgr.getQuestionNum();
 
     if (questionNum > 0) {
       String firstQuestion = await questMgr.getQuestion(0);

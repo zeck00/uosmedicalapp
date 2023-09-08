@@ -1,10 +1,6 @@
 library question_manager;
 
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:flutter/services.dart';
-import 'package:collection/collection.dart';
+import 'package:flutter_application_1/main.dart';
 
 class QuestMgr {
   static QuestMgr? _sInstance;
@@ -26,40 +22,23 @@ class QuestMgr {
 
   static QuestMgr? instance() => _sInstance;
 
-  Future<List<Map>> get _questions async => List<Map>.from(await json
-      .decode(await rootBundle.loadString('assets/data/questions.json')));
-
+  late int _questionNum;
   late List<int> _questionIndexMap;
   late List<List<int>> _questionAnswerIndexMap;
 
-  Future<int> get _questionNum async => (await _questions).length;
-
   _initializeQuestionIndexMap() async {
-    _questionIndexMap = List.generate(await _questionNum, (index) => index);
+    _questionIndexMap = List.generate(_questionNum, (index) => index);
     _questionIndexMap.shuffle();
   }
 
-  Future<Map> _getQuestion(int index) async {
-    List<Map> questions = await _questions;
-    assert(0 <= index && index < questions.length);
-    return questions[_questionIndexMap[index]];
-  }
-
-  Future<List> _getQuestionChoices(int index) async =>
-      (await _getQuestion(index))["choices"] as List;
-
-  Future<int> _getQuestionChoiceNum(int index) async =>
-      (await _getQuestionChoices(index)).length;
-
   _initializeQuestionAnswerIndexMap() async {
-    int questionNum = await _questionNum;
-
     List<List<int>?> questionAnswerIndexMap =
-        List<List<int>?>.generate(questionNum, (index) => null);
+        List<List<int>?>.generate(_questionNum, (index) => null);
 
-    for (int index = 0; index < questionNum; index++) {
+    for (int index = 0; index < _questionNum; index++) {
       var list = List.generate(
-          await _getQuestionChoiceNum(index), (answerIndex) => answerIndex);
+          await client.questServer.getQuestionChoiceNum(index),
+          (answerIndex) => answerIndex);
       list.shuffle();
       questionAnswerIndexMap[index] = list;
     }
@@ -68,7 +47,7 @@ class QuestMgr {
   }
 
   _doUnitTesting() async {
-    int questionNum = await getQuestionNum();
+    int questionNum = getQuestionNum();
 
     List<String?> questions = List.generate(questionNum, (index) => null);
     Map<String, List<String>> questionChoices = {};
@@ -169,58 +148,58 @@ class QuestMgr {
   }
 
   _initialize() async {
+    try {
+      _questionNum = await client.questServer.getQuestionNum();
+    } catch (e) {
+      print('$e');
+      _questionNum = 0;
+    }
+
     await _initializeQuestionIndexMap();
     await _initializeQuestionAnswerIndexMap();
+
     // await _doUnitTesting();
   }
 
-  final _random = Random();
-
-  _simulateLatency() async =>
-      await Future.delayed(Duration(seconds: 1 + _random.nextInt(3 - 1)));
-
-  Future<int> getQuestionNum() async {
-    await _simulateLatency();
+  int getQuestionNum() {
     return _questionNum;
   }
 
+  int _mapQuestionIndex(int index) {
+    assert(0 <= index && index < _questionNum);
+    return _questionIndexMap[index];
+  }
+
+  int _mapQuestionAnswerIndex(int index, int answerIndex) {
+    assert(0 <= index && index < _questionNum);
+    List<int> answerIndexMap = _questionAnswerIndexMap[index];
+    assert(0 <= index && index < answerIndexMap.length);
+    return answerIndexMap[answerIndex];
+  }
+
   Future<String> getQuestion(int index) async {
-    await _simulateLatency();
-    return (await _getQuestion(index))["question"];
+    return client.questServer.getQuestion(_mapQuestionIndex(index));
   }
 
   Future<int> getQuestionChoiceNum(int index) async {
-    await _simulateLatency();
-    return _getQuestionChoiceNum(index);
+    return client.questServer.getQuestionChoiceNum(_mapQuestionIndex(index));
   }
 
   Future<List<String>> getQuestionChoices(int index) async {
-    await _simulateLatency();
-
-    List questionChoices = await _getQuestionChoices(index);
+    List<String> questionChoices =
+        await client.questServer.getQuestionChoices(_mapQuestionIndex(index));
 
     return List.generate(
         questionChoices.length,
         (answerIndex) =>
-            questionChoices[_questionAnswerIndexMap[index][answerIndex]]
-                as String);
+            questionChoices[_mapQuestionAnswerIndex(index, answerIndex)]);
   }
 
   Future<bool> checkQuestionChoices(int index, List<int> choiceIndices) async {
-    await _simulateLatency();
-
-    var correctAnswerIndex = (await _getQuestion(index))["answer_index"];
-    if (correctAnswerIndex is int) {
-      return choiceIndices.length == 1 &&
-          _questionAnswerIndexMap[index][choiceIndices[0]] ==
-              correctAnswerIndex;
-    } else {
-      List<int> mappedChoiceIndices = List.generate(
-          choiceIndices.length,
-          (answerIndex) =>
-              _questionAnswerIndexMap[index][choiceIndices[answerIndex]]);
-      return const DeepCollectionEquality.unordered()
-          .equals(mappedChoiceIndices, List<int>.from(correctAnswerIndex));
-    }
+    List<int> mappedChoiceIndices = List.generate(
+        choiceIndices.length,
+        (choiceIndex) =>
+            _mapQuestionAnswerIndex(index, choiceIndices[choiceIndex]));
+    return client.questServer.checkQuestionChoices(index, mappedChoiceIndices);
   }
 }
