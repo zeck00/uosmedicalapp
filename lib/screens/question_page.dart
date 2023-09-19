@@ -119,7 +119,7 @@ class _QPageState extends State<QPage> {
                                   blur: 40,
                                   borderRadius: BorderRadius.circular(35),
                                   width: double.infinity,
-                                  height: 95,
+                                  height: null,
                                   color: MyColors.yellow.withOpacity(0.45),
                                   padding: EdgeInsets.all(15),
                                   child: Align(
@@ -128,6 +128,7 @@ class _QPageState extends State<QPage> {
                                       questionStr,
                                       style: FontStyles.questions,
                                       textAlign: TextAlign.center,
+                                      textScaleFactor: null,
                                     ),
                                   ),
                                 ),

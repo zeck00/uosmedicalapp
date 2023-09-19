@@ -102,7 +102,16 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Expanded(child: Container()),
-                              MyIcons.arrowcircle()
+                              InkWell(
+                                child: MyIcons.arrowcircle(),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SearchPage()),
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         ],
@@ -121,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(
                           left: 10, top: 7, right: 10, bottom: 5),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,13 +160,13 @@ class _HomePageState extends State<HomePage> {
                   BlurryContainer(
                     blur: 100,
                     width: MediaQuery.of(context).size.width,
-                    height: 375,
+                    height: 395,
                     color: MyColors.darkBlue.withOpacity(0.45),
                     borderRadius: BorderRadius.circular(35),
                     elevation: 10,
                     child: Container(
                       padding: const EdgeInsets.only(
-                          left: 10, top: 7, right: 10, bottom: 5),
+                          left: 10, top: 7, right: 10, bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -194,22 +203,32 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                           const SizedBox(height: 15),
-                          BlurryContainer(
-                            blur: 100,
-                            width: MediaQuery.of(context).size.width,
-                            height: 250,
-                            color: MyColors.yellow.withOpacity(0.35),
-                            borderRadius: BorderRadius.circular(35),
-                            elevation: 10,
-                            child: Center(
-                              child: Text(
-                                _questions.isNotEmpty
-                                    ? getQuestionText(_questions[0])
-                                    : "Loading questions...",
-                                style: FontStyles.questions,
-                                textAlign: TextAlign.center,
+                          InkWell(
+                            child: BlurryContainer(
+                              blur: 100,
+                              width: MediaQuery.of(context).size.width,
+                              height: 250,
+                              color: MyColors.yellow.withOpacity(0.25),
+                              borderRadius: BorderRadius.circular(35),
+                              elevation: 10,
+                              child: Center(
+                                child: Text(
+                                  _questions.isNotEmpty
+                                      ? getQuestionText(_questions[0])
+                                      : "Loading questions...",
+                                  style: FontStyles.questions,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        QPage(questions: _questions)),
+                              );
+                            },
                           ),
                         ],
                       ),
