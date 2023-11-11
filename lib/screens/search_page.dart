@@ -5,6 +5,7 @@ import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter_application_1/screens/pdf_page.dart';
 import 'home_page.dart';
 import 'profile_page.dart';
 import 'setttings_page.dart';
@@ -17,6 +18,25 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  // Example list of file paths for your PDFs
+  final List<String> pdfFilePaths = [
+    'assets/questions/HAN English lectures/Lec (1).pdf',
+    'assets/questions/HAN English lectures/Lec (2).pdf',
+    'assets/questions/HAN English lectures/Lec (3).pdf',
+    'assets/questions/HAN English lectures/Lec (4).pdf',
+    'assets/questions/HAN English lectures/Lec (5).pdf',
+    'assets/questions/HAN English lectures/Lec (6).pdf',
+    'assets/questions/HAN English lectures/Lec (7).pdf',
+    'assets/questions/HAN English lectures/Lec (8).pdf',
+    'assets/questions/HAN English lectures/Lec (9).pdf',
+    'assets/questions/HAN English lectures/Lec (10).pdf',
+    'assets/questions/HAN English lectures/Lec (11).pdf',
+    'assets/questions/HAN English lectures/Lec (12).pdf',
+    'assets/questions/HAN English lectures/Lec (13).pdf',
+    'assets/questions/HAN English lectures/Lec (14).pdf',
+    'assets/questions/HAN English lectures/Lec (15).pdf'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
                         style: FontStyles.pagetitle,
                         textAlign: TextAlign.start,
                       ),
-                      SizedBox(width: 42),
+                      Expanded(child: Container()),
                       ElevatedButton(
                         onPressed: () {
                           // Add your onPressed action here
@@ -81,10 +101,24 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: LessonBox(),
+                          child: LessonBox(
+                            filePath: pdfFilePaths[index],
+                            lessonNumber: index + 1, // Add this line
+                            onTap: () {
+                              // Pass a callback that opens the PDF viewer page with the file path
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PdfPage(filePath: pdfFilePaths[index]),
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
-                      itemCount: 10,
+                      itemCount: pdfFilePaths
+                          .length, // Use the length of your file paths list
                     ),
                   ),
                   BottomNav(),
@@ -99,31 +133,41 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class LessonBox extends StatelessWidget {
+  final VoidCallback onTap;
+  final String filePath;
+  final int lessonNumber; // Add this line
+
   const LessonBox({
-    super.key,
-  });
+    Key? key,
+    required this.onTap,
+    required this.filePath,
+    required this.lessonNumber, // Add this line
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlurryContainer(
-      blur: 100,
-      width: MediaQuery.of(context).size.width,
-      height: 115,
-      color: MyColors.darkBlue.withOpacity(0.45),
-      borderRadius: BorderRadius.circular(35),
-      elevation: 10,
-      child: Row(
-        children: [
-          MyIcons.lessonicon(),
-          SizedBox(width: 10),
-          Text(
-            "Lesson 01",
-            style: FontStyles.categories,
-          ),
-          SizedBox(width: 10),
-          MyIcons.arrowcircle(),
-          SizedBox(width: 10),
-        ],
+    return InkWell(
+      onTap: onTap, // Use the passed callback here
+      child: BlurryContainer(
+        blur: 100,
+        width: MediaQuery.of(context).size.width,
+        height: 115,
+        color: MyColors.darkBlue.withOpacity(0.45),
+        borderRadius: BorderRadius.circular(35),
+        elevation: 10,
+        child: Row(
+          children: [
+            MyIcons.lessonicon(),
+            SizedBox(width: 10),
+            Text(
+              "Lesson ${lessonNumber.toString().padLeft(2, '0')}", // Modify this line
+              style: FontStyles.categories,
+            ),
+            Expanded(child: Container()),
+            MyIcons.arrowcircle(),
+            SizedBox(width: 20),
+          ],
+        ),
       ),
     );
   }

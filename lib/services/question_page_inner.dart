@@ -1,185 +1,399 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
+// import 'package:blurrycontainer/blurrycontainer.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_application_1/services/question_manager.dart';
+
+// import '../screens/mycolors.dart';
+// import '../screens/myfonts.dart';
+// import '../screens/myicons.dart';
+
+// class QPageInner extends StatefulWidget {
+//   final int currentQIdx;
+//   final void Function() prevQuestion;
+//   final void Function() nextQuestion;
+
+//   const QPageInner(
+//       {Key? key,
+//       required this.currentQIdx,
+//       required this.prevQuestion,
+//       required this.nextQuestion})
+//       : super(key: key);
+
+//   @override
+//   State<QPageInner> createState() => _QPageInnerState();
+
+//   static Text getQuestionStrText(String questionStr) => Text(
+//         questionStr,
+//         style: FontStyles.questions,
+//         textAlign: TextAlign.center,
+//       );
+
+//   static FutureBuilder<String> getQuestionStrFutureText(
+//           Future<String> questionStr, String fallback) =>
+//       FutureBuilder(
+//           future: questionStr,
+//           builder: (futureContext, snapshot) {
+//             int state = 2;
+
+//             switch (snapshot.connectionState) {
+//               case ConnectionState.waiting:
+//                 break;
+//               default:
+//                 if (snapshot.hasError) {
+//                   state = 0;
+//                 } else if (snapshot.hasData) {
+//                   state = 1;
+//                 }
+//                 break;
+//             }
+
+//             switch (state) {
+//               case 0:
+//                 throw snapshot.error!;
+//               case 1:
+//                 return getQuestionStrText(snapshot.data!);
+//               default:
+//                 return getQuestionStrText(fallback);
+//             }
+//           });
+// }
+
+// class _QPageInnerState extends State<QPageInner> {
+//   late Future<String> _questionStr;
+//   late Future<List<String>> _choices;
+//   int _currentQIdx = -1;
+
+//   _reloadQuestion() /* async */ {
+//     int currentQIdx = widget.currentQIdx;
+//     if (_currentQIdx == currentQIdx) return;
+
+//     /* QuestMgr questMgr = await QuestMgr.createSingleton(); */
+//     // QuestMgr should have already been created by the time QPage is
+//     QuestMgr questMgr = QuestMgr.instance()!;
+
+//     setState(() {
+//       _questionStr = questMgr.getQuestion(currentQIdx);
+//       _choices = questMgr.getQuestionChoices(currentQIdx);
+//       _currentQIdx = currentQIdx;
+//     });
+//   }
+
+//   FutureBuilder<String> get _questionStrText {
+//     int currentQIdx = widget.currentQIdx;
+//     return QPageInner.getQuestionStrFutureText(
+//         _questionStr, "Loading question ${currentQIdx + 1}...");
+//   }
+
+//   BlurryContainer get _questionStrBlurryContainer => BlurryContainer(
+//         elevation: 10,
+//         blur: 40,
+//         borderRadius: BorderRadius.circular(35),
+//         width: double.infinity,
+//         height: 95,
+//         color: MyColors.yellow.withOpacity(0.45),
+//         padding: const EdgeInsets.all(15),
+//         child: Align(
+//           alignment: Alignment.center,
+//           child: _questionStrText,
+//         ),
+//       );
+
+//   Expanded _getChoicesListView(List<String> choices) => Expanded(
+//         child: ListView(
+//           padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+//           children: [
+//             Column(
+//               children: choices
+//                   .map((e) => Column(children: [
+//                         const SizedBox(height: 10),
+//                         BlurryContainer(
+//                           width: double.infinity,
+//                           height: 95,
+//                           borderRadius: BorderRadius.circular(35),
+//                           color: MyColors.darkBlue.withOpacity(0.45),
+//                           child: Center(
+//                             child: Text(
+//                               e,
+//                               style: FontStyles.subs,
+//                               textAlign: TextAlign.center,
+//                             ),
+//                           ),
+//                         ),
+//                       ]))
+//                   .toList(),
+//             ),
+//           ],
+//         ),
+//       );
+
+//   BlurryContainer _getBody(List<String>? choices) => BlurryContainer(
+//         width: MediaQuery.of(context).size.width,
+//         height: (230 + (choices != null ? 100 * choices.length : 0)).toDouble(),
+//         borderRadius: BorderRadius.circular(35),
+//         color: MyColors.blue,
+//         child: Column(
+//           children: [
+//             const SizedBox(height: 115),
+//             Row(
+//               children: [
+//                 InkWell(onTap: widget.prevQuestion, child: MyIcons.arrowleft()),
+//                 Expanded(child: Container()),
+//                 InkWell(
+//                     onTap: widget.nextQuestion,
+//                     child: RotatedBox(
+//                         quarterTurns: 2, child: MyIcons.arrowleft())),
+//               ], //children
+//             ),
+//             _questionStrBlurryContainer,
+//             const SizedBox(height: 5),
+//             choices != null
+//                 ? _getChoicesListView(choices)
+//                 : const SizedBox.shrink(),
+//           ],
+//         ),
+//       );
+
+//   @override
+//   Widget build(BuildContext context) {
+//     _reloadQuestion();
+//     return FutureBuilder<List<String>>(
+//         future: _choices,
+//         builder: (futureContext, snapshot) {
+//           int state = 2;
+
+//           switch (snapshot.connectionState) {
+//             case ConnectionState.waiting:
+//               break;
+//             default:
+//               if (snapshot.hasError) {
+//                 state = 0;
+//               } else if (snapshot.hasData) {
+//                 state = 1;
+//               }
+//               break;
+//           }
+
+//           switch (state) {
+//             case 0:
+//               throw snapshot.error!;
+//             case 1:
+//               return _getBody(snapshot.data!);
+//             default:
+//               return _getBody(null);
+//           }
+//         });
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/services/question_manager.dart';
+import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter_application_1/screens/question_page.dart';
 
 import '../screens/mycolors.dart';
 import '../screens/myfonts.dart';
 import '../screens/myicons.dart';
+import '../services/question_manager.dart';
 
 class QPageInner extends StatefulWidget {
   final int currentQIdx;
-  final void Function() prevQuestion;
-  final void Function() nextQuestion;
+  final VoidCallback prevQuestion;
+  final VoidCallback nextQuestion;
 
-  const QPageInner(
-      {Key? key,
-      required this.currentQIdx,
-      required this.prevQuestion,
-      required this.nextQuestion})
-      : super(key: key);
+  const QPageInner({
+    Key? key,
+    required this.currentQIdx,
+    required this.prevQuestion,
+    required this.nextQuestion,
+  }) : super(key: key);
 
   @override
   State<QPageInner> createState() => _QPageInnerState();
 
-  static Text getQuestionStrText(String questionStr) => Text(
-        questionStr,
-        style: FontStyles.questions,
-        textAlign: TextAlign.center,
-      );
-
-  static FutureBuilder<String> getQuestionStrFutureText(
-          Future<String> questionStr, String fallback) =>
-      FutureBuilder(
-          future: questionStr,
-          builder: (futureContext, snapshot) {
-            int state = 2;
-
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                break;
-              default:
-                if (snapshot.hasError) {
-                  state = 0;
-                } else if (snapshot.hasData) {
-                  state = 1;
-                }
-                break;
-            }
-
-            switch (state) {
-              case 0:
-                throw snapshot.error!;
-              case 1:
-                return getQuestionStrText(snapshot.data!);
-              default:
-                return getQuestionStrText(fallback);
-            }
-          });
+  static Widget getQuestionStrText(String questionStr) {
+    // This is a static method now and can be called from outside the class.
+    return Text(
+      questionStr,
+      style: FontStyles.questions,
+      textAlign: TextAlign.center,
+    );
+  }
 }
 
 class _QPageInnerState extends State<QPageInner> {
   late Future<String> _questionStr;
   late Future<List<String>> _choices;
-  int _currentQIdx = -1;
+  int? _selectedIndex; // Track the selected index
+  bool? _isCorrect; // Track if the selected answer is correct
 
-  _reloadQuestion() /* async */ {
-    int currentQIdx = widget.currentQIdx;
-    if (_currentQIdx == currentQIdx) return;
+  @override
+  void initState() {
+    super.initState();
+    _loadQuestionData();
+  }
 
-    /* QuestMgr questMgr = await QuestMgr.createSingleton(); */
-    // QuestMgr should have already been created by the time QPage is
+  void _handleChoiceTap(int currQIdx, int index, String choice) async {
     QuestMgr questMgr = QuestMgr.instance()!;
+    int correctIndex = await questMgr.getCorrectAnswerIndex(currQIdx);
 
     setState(() {
-      _questionStr = questMgr.getQuestion(currentQIdx);
-      _choices = questMgr.getQuestionChoices(currentQIdx);
-      _currentQIdx = currentQIdx;
+      _selectedIndex = index;
+      _isCorrect = index == correctIndex;
     });
   }
 
-  FutureBuilder<String> get _questionStrText {
-    int currentQIdx = widget.currentQIdx;
-    return QPageInner.getQuestionStrFutureText(
-        _questionStr, "Loading question ${currentQIdx + 1}...");
+  @override
+  void didUpdateWidget(QPageInner oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.currentQIdx != oldWidget.currentQIdx) {
+      _loadQuestionData();
+      _resetChoiceState();
+    }
   }
 
-  BlurryContainer get _questionStrBlurryContainer => BlurryContainer(
-        elevation: 10,
-        blur: 40,
-        borderRadius: BorderRadius.circular(35),
+  void _resetChoiceState() {
+    setState(() {
+      _selectedIndex = null;
+      _isCorrect = null;
+    });
+  }
+
+  Color _getChoiceColor(int index) {
+    // If nothing or another index is selected, return default color
+    if (_selectedIndex == null || _selectedIndex != index)
+      return MyColors.darkBlue.withOpacity(0.45);
+
+    // Return colors based on the correctness of the selection
+    return _isCorrect == true ? MyColors.yellow : MyColors.pink;
+  }
+
+  void _loadQuestionData() {
+    QuestMgr questMgr = QuestMgr.instance()!;
+    _questionStr = questMgr.getQuestion(widget.currentQIdx);
+    _choices = questMgr.getQuestionChoices(widget.currentQIdx);
+  }
+
+  Widget _buildQuestionText(String questionStr) {
+    return BlurryContainer(
+      elevation: 10,
+      blur: 40,
+      borderRadius: BorderRadius.circular(35),
+      width: double.infinity,
+      height: 95,
+      color: MyColors.yellow.withOpacity(0.45),
+      padding: const EdgeInsets.all(15),
+      child: Align(
+        alignment: Alignment.center,
+        child: Text(
+          questionStr,
+          style: FontStyles.questions,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildChoice(String choice, int index) {
+    return InkWell(
+      onTap: () => _handleChoiceTap(widget.currentQIdx, index, choice),
+      child: BlurryContainer(
         width: double.infinity,
         height: 95,
-        color: MyColors.yellow.withOpacity(0.45),
-        padding: const EdgeInsets.all(15),
-        child: Align(
-          alignment: Alignment.center,
-          child: _questionStrText,
-        ),
-      );
-
-  Expanded _getChoicesListView(List<String> choices) => Expanded(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-          children: [
-            Column(
-              children: choices
-                  .map((e) => Column(children: [
-                        const SizedBox(height: 10),
-                        BlurryContainer(
-                          width: double.infinity,
-                          height: 95,
-                          borderRadius: BorderRadius.circular(35),
-                          color: MyColors.darkBlue.withOpacity(0.45),
-                          child: Center(
-                            child: Text(
-                              e,
-                              style: FontStyles.subs,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ]))
-                  .toList(),
-            ),
-          ],
-        ),
-      );
-
-  BlurryContainer _getBody(List<String>? choices) => BlurryContainer(
-        width: MediaQuery.of(context).size.width,
-        height: (230 + (choices != null ? 100 * choices.length : 0)).toDouble(),
         borderRadius: BorderRadius.circular(35),
-        color: MyColors.blue,
-        child: Column(
-          children: [
-            const SizedBox(height: 115),
-            Row(
-              children: [
-                InkWell(onTap: widget.prevQuestion, child: MyIcons.arrowleft()),
-                Expanded(child: Container()),
-                InkWell(
-                    onTap: widget.nextQuestion,
-                    child: RotatedBox(
-                        quarterTurns: 2, child: MyIcons.arrowleft())),
-              ], //children
-            ),
-            _questionStrBlurryContainer,
-            const SizedBox(height: 5),
-            choices != null
-                ? _getChoicesListView(choices)
-                : const SizedBox.shrink(),
-          ],
+        color:
+            _getChoiceColor(index), // Use the dynamic color based on selection
+        child: Center(
+          child: Text(
+            choice,
+            style: FontStyles.subs,
+            textAlign: TextAlign.center,
+          ),
         ),
-      );
+      ),
+    );
+  }
+
+  Widget _buildChoicesListView(List<String> choices) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      itemCount: choices.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: _buildChoice(choices[index],
+              index), // Build each choice with the _buildChoice method
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    _reloadQuestion();
-    return FutureBuilder<List<String>>(
-        future: _choices,
-        builder: (futureContext, snapshot) {
-          int state = 2;
+    return Flexible(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: widget.prevQuestion,
+                child: Row(
+                  children: [
+                    MyIcons.arrowleft(),
+                    SizedBox(width: 8), // Spacing between icon and text
+                    Text("Previous",
+                        style: FontStyles.subs), // Use style from previous code
+                  ],
+                ),
+              ),
+              Expanded(child: Container()),
+              InkWell(
+                onTap: widget.nextQuestion,
+                child: Row(
+                  children: [
+                    Text("Next", style: FontStyles.subs),
 
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              break;
-            default:
-              if (snapshot.hasError) {
-                state = 0;
+                    SizedBox(width: 8),
+                    RotatedBox(
+                      quarterTurns: 2,
+                      child: MyIcons.arrowleft(),
+                    ), // Spacing between icon and text
+                  ],
+                ),
+              ),
+            ],
+          ),
+          FutureBuilder<String>(
+            future: _questionStr,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
               } else if (snapshot.hasData) {
-                state = 1;
+                return _buildQuestionText(snapshot.data!);
+              } else {
+                return Text('No question available');
               }
-              break;
-          }
-
-          switch (state) {
-            case 0:
-              throw snapshot.error!;
-            case 1:
-              return _getBody(snapshot.data!);
-            default:
-              return _getBody(null);
-          }
-        });
+            },
+          ),
+          const SizedBox(height: 10),
+          FutureBuilder<List<String>>(
+            future: _choices,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                return Expanded(child: _buildChoicesListView(snapshot.data!));
+              } else {
+                return Text('No choices available');
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
