@@ -14,36 +14,52 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  // Define TextEditingController for the email fields
+  final TextEditingController primaryEmailController = TextEditingController();
+  final TextEditingController secondaryEmailController =
+      TextEditingController();
+
+  // Define a variable to track the 2FA status
+  bool is2FAEnabled = true;
+
+  @override
+  void dispose() {
+    // Dispose of the TextEditingController to free up resources
+    primaryEmailController.dispose();
+    secondaryEmailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false, // Add this line
       backgroundColor: MyColors.green,
-      body: SingleChildScrollView(
-        child: Container(
-          width: screenSize.width,
-          height: screenSize.height,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/Splash.png"),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        width: screenSize.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/Splash.png"),
+            fit: BoxFit.cover,
           ),
-          child: Padding(
-            padding:
-                EdgeInsets.all(screenSize.width * 0.05), // Responsive padding
-            child: BlurryContainer(
-              borderRadius: BorderRadius.circular(35),
-              blur: 25,
-              color: MyColors.white.withAlpha(100),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal:
-                      screenSize.width * 0.05, // Responsive horizontal padding
-                  vertical:
-                      screenSize.height * 0.01, // Responsive vertical padding
-                ),
+        ),
+        child: Padding(
+          padding:
+              EdgeInsets.all(screenSize.width * 0.05), // Responsive padding
+          child: BlurryContainer(
+            borderRadius: BorderRadius.circular(35),
+            blur: 25,
+            color: MyColors.white.withAlpha(100),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal:
+                    screenSize.width * 0.05, // Responsive horizontal padding
+                vertical:
+                    screenSize.height * 0.01, // Responsive vertical padding
+              ),
+              child: Container(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -80,8 +96,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     BlurryContainer(
                       blur: 100,
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
+                      width: screenSize.width,
+                      height: 65,
                       color: MyColors.yellow.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(35),
                       elevation: 10,
@@ -91,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Text(
                                   "Your Email",
                                   style: FontStyles.settings,
@@ -99,21 +115,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(width: 5),
                                 Text("|", style: FontStyles.bigtitle),
                                 SizedBox(width: 5),
-                                Text(
-                                  "U22106802@sharjah.ac.ae",
-                                  style: FontStyles.details,
-                                )
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: primaryEmailController,
+                                    style: FontStyles.details,
+                                    decoration: InputDecoration(
+                                      hintText: "Enter your email",
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 30),
                     BlurryContainer(
                       blur: 100,
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
+                      width: screenSize.width,
+                      height: 65,
                       color: MyColors.yellow.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(35),
                       elevation: 10,
@@ -123,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Text(
                                   "2nd Email",
                                   style: FontStyles.settings,
@@ -131,21 +153,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(width: 8),
                                 Text("|", style: FontStyles.bigtitle),
                                 SizedBox(width: 5),
-                                Text(
-                                  "ZZZZZZZZZ@sharjah.ac.ae",
-                                  style: FontStyles.details,
-                                )
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: secondaryEmailController,
+                                    style: FontStyles.details,
+                                    decoration: InputDecoration(
+                                      hintText: "Enter 2nd email",
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 30),
                     BlurryContainer(
                       blur: 100,
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
+                      width: screenSize.width,
+                      height: 65,
                       color: MyColors.yellow.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(35),
                       elevation: 10,
@@ -155,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Text(
                                   "2FA Method",
                                   style: FontStyles.settings,
@@ -164,8 +192,31 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Text("|", style: FontStyles.bigtitle),
                                 SizedBox(width: 5),
                                 Text(
-                                  "Enabled",
+                                  is2FAEnabled ? "Enabled" : "Disabled",
                                   style: FontStyles.details,
+                                ),
+                                Expanded(child: Container()),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      is2FAEnabled = !is2FAEnabled;
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: is2FAEnabled
+                                        ? Colors.green
+                                        : MyColors
+                                            .pink, // Change color based on the is2FAEnabled flag
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    is2FAEnabled ? "Disable" : "Enable",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 )
                               ],
                             ),

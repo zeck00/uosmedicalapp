@@ -123,11 +123,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    Expanded(child: Container()),
                     BlurryContainer(
                       blur: 100,
                       width: screenSize.width,
-                      height: screenSize.height * 0.6,
+                      height: screenSize.height * 0.55,
                       color: MyColors.darkBlue.withOpacity(0.45),
                       borderRadius: BorderRadius.circular(35),
                       elevation: 10,
@@ -162,11 +162,11 @@ class _HomePageState extends State<HomePage> {
                                 )
                               ],
                             ),
-                            const SizedBox(height: 20),
+                            Expanded(child: Container()),
                             BlurryContainer(
                               blur: 100,
                               width: screenSize.width,
-                              height: screenSize.height * 0.475,
+                              height: screenSize.height * 0.4,
                               color: MyColors.yellow.withOpacity(0.35),
                               borderRadius: BorderRadius.circular(35),
                               elevation: 10,
