@@ -21,13 +21,34 @@ class QPage extends StatefulWidget {
 
 class _QPageState extends State<QPage> {
   int _currentQIdx = 0;
-  List<String> choices = []; // Placeholder for choices list
-  String questionStr = ""; // Placeholder for question string
+  double _score = 0; // Add a property to track the score
 
   @override
   void initState() {
     super.initState();
-    // Load your questions and choices here
+    // Your initialization logic here (if necessary)
+  }
+
+  void _updateScore(double newScore) {
+    setState(() {
+      _score = newScore;
+    });
+  }
+
+  void _nextQuestion() {
+    if (_currentQIdx < widget.questionNum - 1) {
+      setState(() {
+        _currentQIdx++;
+      });
+    }
+  }
+
+  void _prevQuestion() {
+    if (_currentQIdx > 0) {
+      setState(() {
+        _currentQIdx--;
+      });
+    }
   }
 
   @override
@@ -66,23 +87,101 @@ class _QPageState extends State<QPage> {
                       children: [
                         InkWell(
                           onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => HomePage())),
+                              MaterialPageRoute(
+                                  builder: (_) => const HomePage())),
                           child: MyIcons.backhome(),
                         ),
                         Expanded(child: Container()),
                         InkWell(child: MyIcons.qhelparrow()),
                       ],
                     ),
-                    SizedBox(height: screenHeight * 0.05),
-                    Text(
+                    SizedBox(height: screenHeight * 0.02),
+                    const Text(
                       "Test Your Knowledge ! ",
-                      style: FontStyles.bigtitle,
-                    ), // Responsive spacing
+                      style: FontStyles.categories,
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    // Score bar added here
+                    Container(
+                      width: screenWidth * 0.5,
+                      decoration: BoxDecoration(
+                        color: MyColors.magenta.withAlpha(65),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('Score: $_score',
+                                style: FontStyles.categories),
+                            IconButton(
+                              icon:
+                                  Icon(Icons.info_outline), // The 'i' info icon
+                              color: Colors.white, // Color for the icon
+                              onPressed: () {
+                                // Show the dialog when the info icon is tapped
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            20), // Rounded edges for AlertDialog
+                                      ),
+                                      title: Text(
+                                        'Information',
+                                        style: TextStyle(
+                                            color: MyColors
+                                                .white), // Custom text style for the title
+                                      ),
+                                      content: Text(
+                                        'Your score is calculated based on the correctness of your answer! In other words; it depends on how close you are to the real answer...',
+                                        style: TextStyle(
+                                            color: MyColors
+                                                .black), // Custom text style for the content
+                                      ),
+                                      backgroundColor: MyColors.green.withAlpha(
+                                          250), // Background color for AlertDialog
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text('Close',
+                                              style: TextStyle(
+                                                  color: MyColors
+                                                      .white)), // Custom text style for the button
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Close the dialog
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: MyColors
+                                                .black, // Background color for the button
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  20), // Rounded edges for button
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    // Responsive spacing
                     // The content of your questions goes here
                     QPageInner(
                       currentQIdx: _currentQIdx,
                       prevQuestion: _prevQuestion,
                       nextQuestion: _nextQuestion,
+                      onScoreUpdated:
+                          _updateScore, // Pass the update score method
                     ),
                     SizedBox(height: screenHeight * 0.01), // Responsive spacing
                     BottomNav(),
@@ -95,8 +194,7 @@ class _QPageState extends State<QPage> {
       ),
     );
   }
-
-
+}
 
 
 
@@ -220,3 +318,4 @@ class _QPageState extends State<QPage> {
 //     );
 //   }
 // }
+//

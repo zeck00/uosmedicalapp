@@ -15,8 +15,15 @@ var client = Client('http://localhost:8080/')
   ..connectivityMonitor = FlutterConnectivityMonitor();
 
 void main() {
-  runApp(MyApp());
-  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  WidgetsFlutterBinding.ensureInitialized();
+  // Lock the device orientation to portrait up and portrait down
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(MyApp());
+    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  });
 }
 
 class MyApp extends StatelessWidget {

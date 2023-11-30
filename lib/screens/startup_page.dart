@@ -7,6 +7,7 @@ import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'mycolors.dart';
+import 'login_page.dart';
 
 class StartupPage extends StatefulWidget {
   const StartupPage({super.key});
@@ -83,7 +84,7 @@ class _StartupPageState extends State<StartupPage> {
                     onSubmit: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
                   ),

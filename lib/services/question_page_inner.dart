@@ -194,6 +194,7 @@ import '../screens/myicons.dart';
 import '../services/question_manager.dart';
 
 class QPageInner extends StatefulWidget {
+  final Function(double) onScoreUpdated; // Add a callback for score update
   final int currentQIdx;
   final VoidCallback prevQuestion;
   final VoidCallback nextQuestion;
@@ -203,6 +204,7 @@ class QPageInner extends StatefulWidget {
     required this.currentQIdx,
     required this.prevQuestion,
     required this.nextQuestion,
+    required this.onScoreUpdated, // Require the callback in the constructor
   }) : super(key: key);
 
   @override
@@ -230,14 +232,20 @@ class _QPageInnerState extends State<QPageInner> {
     _loadQuestionData();
   }
 
-  void _handleChoiceTap(int currQIdx, int index, String choice) async {
+  void _handleChoiceTap(int currQIdx, int index) async {
     QuestMgr questMgr = QuestMgr.instance()!;
-    int correctIndex = await questMgr.getCorrectAnswerIndex(currQIdx);
+
+    // Determine if the selected answer is correct (this may not be needed if you don't use it later).
+    bool isCorrect = index == await questMgr.getCorrectAnswerIndex(currQIdx);
 
     setState(() {
       _selectedIndex = index;
-      _isCorrect = index == correctIndex;
+      _isCorrect = isCorrect;
     });
+
+    // Update the score based on the selected answer.
+    questMgr.selectAnswer(currQIdx, index);
+    widget.onScoreUpdated(questMgr.getScore()); // Update the score display.
   }
 
   @override
@@ -272,28 +280,61 @@ class _QPageInnerState extends State<QPageInner> {
   }
 
   Widget _buildQuestionText(String questionStr) {
-    return BlurryContainer(
-      elevation: 10,
-      blur: 40,
-      borderRadius: BorderRadius.circular(35),
-      width: double.infinity,
-      height: 95,
-      color: MyColors.yellow.withOpacity(0.45),
-      padding: const EdgeInsets.all(15),
-      child: Align(
-        alignment: Alignment.center,
-        child: Text(
-          questionStr,
-          style: FontStyles.questions,
-          textAlign: TextAlign.center,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        BlurryContainer(
+          blur: 40,
+          borderRadius: BorderRadius.circular(35),
+          color: MyColors.yellow.withOpacity(0.3),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 48), // Adjust padding to make space for the buttons
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width * 0.25,
+            alignment: Alignment.center,
+            child: Text(
+              questionStr,
+              style: FontStyles.questions,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          left: -15, // Adjust the position as needed
+          top: 0,
+          bottom: 0,
+          child: CircleAvatar(
+            backgroundColor:
+                Colors.white.withOpacity(0.8), // Adjust the opacity as needed
+            child: IconButton(
+              icon: MyIcons.arrowleft(), // Use Material Icons
+              onPressed: widget.prevQuestion,
+            ),
+          ),
+        ),
+        Positioned(
+          right: -15, // Adjust the position as needed
+          top: 0,
+          bottom: 0,
+          child: CircleAvatar(
+            backgroundColor:
+                Colors.white.withOpacity(0.8), // Adjust the opacity as needed
+            child: IconButton(
+              icon: RotatedBox(
+                  quarterTurns: 2,
+                  child: MyIcons.arrowleft()), // Use Material Icons
+              onPressed: widget.nextQuestion,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildChoice(String choice, int index) {
     return InkWell(
-      onTap: () => _handleChoiceTap(widget.currentQIdx, index, choice),
+      onTap: () => _handleChoiceTap(widget.currentQIdx, index),
       child: BlurryContainer(
         width: double.infinity,
         height: 95,
@@ -331,38 +372,7 @@ class _QPageInnerState extends State<QPageInner> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: widget.prevQuestion,
-                child: Row(
-                  children: [
-                    MyIcons.arrowleft(),
-                    SizedBox(width: 8), // Spacing between icon and text
-                    Text("Previous",
-                        style: FontStyles.subs), // Use style from previous code
-                  ],
-                ),
-              ),
-              Expanded(child: Container()),
-              InkWell(
-                onTap: widget.nextQuestion,
-                child: Row(
-                  children: [
-                    Text("Next", style: FontStyles.subs),
-
-                    SizedBox(width: 8),
-                    RotatedBox(
-                      quarterTurns: 2,
-                      child: MyIcons.arrowleft(),
-                    ), // Spacing between icon and text
-                  ],
-                ),
-              ),
-            ],
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.009),
           FutureBuilder<String>(
             future: _questionStr,
             builder: (context, snapshot) {

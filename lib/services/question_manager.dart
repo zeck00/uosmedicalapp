@@ -214,6 +214,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 class QuestMgr {
+  double _totalScore = 0; // Add a property to track the total score
   static QuestMgr? _sInstance;
   static bool _sInstanceStartCreate = false;
 
@@ -239,6 +240,53 @@ class QuestMgr {
   late List<List<int>> _questionAnswerIndexMap;
   late List<Map<String, dynamic>>
       _questionsData; // Holds the full questions data
+
+  double getScore() {
+    return _totalScore;
+  }
+
+  Map<int, bool> _answeredQuestions = {};
+  // This map keeps track of the currently selected answer's points for each question.
+  // This map keeps track of the previously selected answer's index for each question.
+  Map<int, int> _selectedAnswers = {};
+
+  // Call this method when the user selects an answer.
+  void selectAnswer(int questionIndex, int choiceIndex) {
+    var pointsArray =
+        _questionsData[_mapQuestionIndex(questionIndex)]['points'] as List;
+
+    // If an answer was previously selected for this question, subtract its points.
+    if (_selectedAnswers.containsKey(questionIndex)) {
+      int previousChoiceIndex = _selectedAnswers[questionIndex]!;
+      double previousPoints =
+          (pointsArray[previousChoiceIndex] as num).toDouble();
+      _totalScore -= previousPoints;
+    }
+
+    // Add points for the newly selected answer.
+    double selectedPoints = (pointsArray[choiceIndex] as num).toDouble();
+    _totalScore += selectedPoints;
+
+    // Update the map with the new choice's index.
+    _selectedAnswers[questionIndex] = choiceIndex;
+  }
+
+  void resetScoreForQuestion(int index, int choiceIndex) {
+    // Retrieve the points list for the specific question
+    List<dynamic> pointsList =
+        _questionsData[_mapQuestionIndex(index)]['points'];
+    // Get the points for the choice index
+    double points = (pointsList[choiceIndex] as num).toDouble();
+
+    // Subtract the points for the previously selected answer
+    if (_totalScore == 0) {
+      _totalScore = 0;
+    } else {
+      _totalScore += points;
+    }
+    // Mark the question as unanswered
+    _answeredQuestions[index] = false;
+  }
 
   Future<void> _initialize() async {
     try {
