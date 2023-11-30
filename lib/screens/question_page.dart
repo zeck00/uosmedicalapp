@@ -96,30 +96,7 @@ class _QPageState extends State<QPage> {
     );
   }
 
-  void _nextQuestion() {
-    int questionNum = widget.questionNum;
-    if (!(questionNum > 0)) return;
 
-    int newIndex = _currentQIdx + 1;
-    if (newIndex >= questionNum) return;
-
-    setState(() {
-      _currentQIdx = newIndex;
-    });
-  }
-
-  void _prevQuestion() {
-    int questionNum = widget.questionNum;
-    if (!(questionNum > 0)) return;
-
-    int newIndex = _currentQIdx - 1;
-    if (newIndex < 0) return;
-
-    setState(() {
-      _currentQIdx = newIndex;
-    });
-  }
-}
 
 
 
