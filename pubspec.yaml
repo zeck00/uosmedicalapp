@@ -49,6 +49,7 @@ dependencies:
     path: ./client
   path_provider: ^2.1.1
   pdfx: ^2.3.0
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   flutter_test:

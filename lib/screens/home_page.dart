@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';

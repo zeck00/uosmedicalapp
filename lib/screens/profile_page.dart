@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
 import 'package:flutter_application_1/screens/myfonts.dart';
@@ -203,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     });
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    primary: is2FAEnabled
+                                    backgroundColor: is2FAEnabled
                                         ? Colors.green
                                         : MyColors
                                             .pink, // Change color based on the is2FAEnabled flag

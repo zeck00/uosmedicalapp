@@ -184,6 +184,8 @@
 //   }
 // }
 
+// ignore_for_file: unused_import, curly_braces_in_flow_control_structures, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_application_1/screens/question_page.dart';
@@ -233,10 +235,10 @@ class _QPageInnerState extends State<QPageInner> {
   }
 
   void _handleChoiceTap(int currQIdx, int index) async {
-    QuestMgr questMgr = QuestMgr.instance()!;
+    QuestMgr? questMgr = QuestMgr.instance();
 
     // Determine if the selected answer is correct (this may not be needed if you don't use it later).
-    bool isCorrect = index == await questMgr.getCorrectAnswerIndex(currQIdx);
+    bool isCorrect = index == await questMgr!.getCorrectAnswerIndex(currQIdx);
 
     setState(() {
       _selectedIndex = index;
@@ -274,8 +276,8 @@ class _QPageInnerState extends State<QPageInner> {
   }
 
   void _loadQuestionData() {
-    QuestMgr questMgr = QuestMgr.instance()!;
-    _questionStr = questMgr.getQuestion(widget.currentQIdx);
+    QuestMgr? questMgr = QuestMgr.instance();
+    _questionStr = questMgr!.getQuestion(widget.currentQIdx);
     _choices = questMgr.getQuestionChoices(widget.currentQIdx);
   }
 

@@ -210,6 +210,8 @@
 
 //FROM JSON
 
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, avoid_print
+
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -221,7 +223,7 @@ class QuestMgr {
   static Future<QuestMgr> createSingleton() async {
     if (_sInstanceStartCreate) {
       while (_sInstance == null) {
-        await Future.delayed(Duration(milliseconds: 10));
+        await Future.delayed(Duration(milliseconds: 5));
       }
     } else {
       _sInstanceStartCreate = true;
@@ -286,6 +288,12 @@ class QuestMgr {
     }
     // Mark the question as unanswered
     _answeredQuestions[index] = false;
+  }
+
+  Map<String, double> getChapterScores = {};
+  void updatePointsForChapter(String chapter, double points) {
+    getChapterScores.update(chapter, (currentPoints) => currentPoints + points,
+        ifAbsent: () => points);
   }
 
   Future<void> _initialize() async {

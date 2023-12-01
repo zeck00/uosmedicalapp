@@ -1,83 +1,607 @@
 [
     {
-        "question": "What is the capital of France?",
+        "question": "What is a primary source of Vitamin C?",
         "choices": [
-            "Paris",
-            "London",
-            "Rome",
-            "Berlin"
+            "Oranges",
+            "Apples",
+            "Oranges & Strawberries",
+            "Potatoes"
         ],
-        "correct": 0
+        "points": [0.5, 0.25, 1, 0.5],
+        "correct":2
     },
     {
-        "question": "What is the hardest natural substance on Earth?",
+        "question": "Which nutrient is essential for muscle building?",
         "choices": [
-            "Gold",
-            "Iron",
-            "Diamond",
-            "Quartz"
+            "Carbohydrates",
+            "Proteins",
+            "Proteins & Carbohydrates",
+            "Fats"
         ],
+        "points": [0.25, 0.75, 1, 0.25],
+        "correct":2
+    },
+    {
+        "question": "What helps in bone strengthening?",
+        "choices": [
+            "Vitamin D",
+            "Calcium",
+            "Vitamin D & Calcium",
+            "Iron"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct":2
+    },
+    {
+        "question": "Which food helps in lowering blood pressure?",
+        "choices": [
+            "Bananas",
+            "Leafy greens",
+            "Bananas & Leafy greens",
+            "Red meat"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Who created this app?",
+        "question": "What is crucial for pregnant women?",
         "choices": [
-            "Ahmad",
-            "Abdelrahman",
-            "Ziad",
-            "Abdelrahman & Ziad"
+            "Folic acid",
+            "Iron",
+            "Folic acid & Iron",
+            "Caffeine"
         ],
+        "points": [0.75, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What helps in reducing inflammation?",
+        "choices": [
+            "Turmeric",
+            "Ginger",
+            "Turmeric & Ginger",
+            "Sugar"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is essential for eye health?",
+        "choices": [
+            "Carrots",
+            "Spinach",
+            "Carrots & Spinach",
+            "Fried foods"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What aids in muscle recovery?",
+        "choices": [
+            "Protein",
+            "Carbohydrates",
+            "Protein & Carbohydrates",
+            "Fats"
+        ],
+        "points": [0.75, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is best for liver health?",
+        "choices": [
+            "Coffee",
+            "Tea",
+            "Coffee & Tea",
+            "Alcoholic beverages"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What improves sleep quality?",
+        "choices": [
+            "Chamomile tea",
+            "Warm milk",
+            "Chamomile tea & Warm milk",
+            "Energy drinks"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is effective for stress relief?",
+        "choices": [
+            "Exercise",
+            "Meditation",
+            "Exercise & Meditation",
+            "Smoking"
+        ],
+        "points": [0.75, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What helps in lowering cholesterol?",
+        "choices": [
+            "Oats",
+            "Nuts",
+            "Oats & Nuts",
+            "Butter"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which vitamin is essential for blood clotting?",
+        "choices": [
+            "Vitamin A",
+            "Vitamin K",
+            "Vitamin B12",
+            "Vitamin K & B12"
+        ],
+        "points": [0.25, 0.75, 0.5, 1],
         "correct": 3
     },
     {
-        
-        "question": "Which element is known as the 'King of Chemicals'?",
+        "question": "What is most beneficial for healthy hair and nails?",
         "choices": [
-            "Sodium",
-            "Sulfuric Acid",
-            "Hydrogen",
-            "Oxygen"
+            "Vitamin C",
+            "Biotin",
+            "Vitamin C & Biotin",
+            "Vitamin E"
         ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which mineral is crucial for thyroid function?",
+        "choices": [
+            "Iron",
+            "Iodine",
+            "Calcium",
+            "Iodine & Iron"
+        ],
+        "points": [0.25, 0.75, 0.25, 1],
+        "correct": 3
+    },
+    {
+        "question": "What aids in reducing the risk of type 2 diabetes?",
+        "choices": [
+            "Whole grains",
+            "Processed foods",
+            "Whole grains & Leafy greens",
+            "Leafy greens"
+        ],
+        "points": [0.5, 0.25, 1, 0.5],
+        "correct": 2
+    },
+    {
+        "question": "Which foods are rich in antioxidants?",
+        "choices": [
+            "Berries",
+            "Dark chocolate",
+            "Berries & Dark chocolate",
+            "White bread"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is most effective for boosting immune system?",
+        "choices": [
+            "Vitamin D",
+            "Probiotics",
+            "Vitamin D & Probiotics",
+            "Sugary drinks"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which dietary element is essential for maintaining fluid balance?",
+        "choices": [
+            "Proteins",
+            "Fats",
+            "Electrolytes",
+            "Electrolytes & Water"
+        ],
+        "points": [0.25, 0.25, 0.75, 1],
+        "correct": 3
+    },
+    {
+        "question": "What is most effective for preventing osteoporosis?",
+        "choices": [
+            "Vitamin D",
+            "Calcium",
+            "Vitamin D & Calcium",
+            "Vitamin C"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which foods are good for heart health?",
+        "choices": [
+            "Whole grains",
+            "Fatty fish",
+            "Whole grains & Fatty fish",
+            "High-fat meats"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is most beneficial for digestive health?",
+        "choices": [
+            "Fiber",
+            "Probiotics",
+            "Fiber & Probiotics",
+            "Processed foods"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is a major dietary source of Omega-3 fatty acids?",
+        "choices": [
+            "Salmon",
+            "Chia seeds",
+            "Salmon & Chia seeds",
+            "Red meat"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is crucial for preventing anemia?",
+        "choices": [
+            "Vitamin C",
+            "Iron",
+            "Vitamin C & Iron",
+            "Vitamin B12"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What helps in maintaining a healthy weight?",
+        "choices": [
+            "Regular exercise",
+            "Balanced diet",
+            "Regular exercise & Balanced diet",
+            "Fad diets"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which vitamin is most important for vision?",
+        "choices": [
+            "Vitamin A",
+            "Vitamin E",
+            "Vitamin A & E",
+            "Vitamin C"
+        ],
+        "points": [0.75, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is essential for muscle function?",
+        "choices": [
+            "Protein",
+            "Magnesium",
+            "Protein & Magnesium",
+            "Carbohydrates"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What reduces the risk of heart disease?",
+        "choices": [
+            "Low-fat diet",
+            "High-fiber diet",
+            "Low-fat & High-fiber diet",
+            "High-sugar diet"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is important for healthy pregnancy?",
+        "choices": [
+            "Folic acid",
+            "Calcium",
+            "Folic acid & Calcium",
+            "High-fat diet"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is effective for maintaining healthy blood pressure?",
+        "choices": [
+            "Potassium-rich foods",
+            "Low-sodium diet",
+            "Potassium-rich foods & Low-sodium diet",
+            "High-sodium foods"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which nutrient is vital for energy production?",
+        "choices": [
+            "Carbohydrates",
+            "Proteins",
+            "Carbohydrates & Proteins",
+            "Fats"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What assists in lowering blood sugar levels?",
+        "choices": [
+            "High-fiber foods",
+            "Low-glycemic foods",
+            "High-fiber & Low-glycemic foods",
+            "High-sugar foods"
+        ],
+        "points": [0.5, 0.5, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which of these is not a good source of fiber?",
+        "choices": [
+            "Whole grains",
+            "Legumes",
+            "Processed white bread",
+            "Nuts"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is least effective in boosting heart health?",
+        "choices": [
+            "Olive oil",
+            "Avocado",
+            "Deep-fried foods",
+            "Salmon"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is least beneficial for bone health?",
+        "choices": [
+            "Dairy products",
+            "Leafy greens",
+            "Sugary snacks",
+            "Fish with bones"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What does not contribute to muscle growth?",
+        "choices": [
+            "Lean meat",
+            "Legumes",
+            "Candy bars",
+            "Eggs"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is least helpful in maintaining a healthy immune system?",
+        "choices": [
+            "Citrus fruits",
+            "Green vegetables",
+            "Fast food",
+            "Nuts and seeds"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is not a good source of healthy fats?",
+        "choices": [
+            "Avocado",
+            "Olive oil",
+            "Butter",
+            "Nuts"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which of these does not aid in reducing inflammation?",
+        "choices": [
+            "Turmeric",
+            "Ginger",
+            "Refined sugar",
+            "Omega-3 fatty acids"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is least effective for weight loss?",
+        "choices": [
+            "High-protein diet",
+            "Regular exercise",
+            "High-sugar diet",
+            "Balanced diet"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is least likely to improve sleep quality?",
+        "choices": [
+            "Chamomile tea",
+            "Warm milk",
+            "Caffeinated drinks",
+            "Magnesium-rich foods"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which food least helps in lowering cholesterol?",
+        "choices": [
+            "Oats",
+            "Fruits",
+            "High-fat dairy products",
+            "Vegetables"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which of these is least effective for hydrating the body?",
+        "choices": [
+            "Water",
+            "Caffeinated beverages",
+            "Herbal tea",
+            "Fruit juice"
+        ],
+        "points": [0.25, 1, 0.25, 0.5],
         "correct": 1
     },
     {
-        "question": "In computer science, what does 'AI' stand for?",
+        "question": "What is the least beneficial for reducing the risk of type 2 diabetes?",
         "choices": [
-            "Automated Intelligence",
-            "Artificial Intelligence",
-            "Advanced Informatics",
-            "Algorithmic Interpretation"
+            "Whole grains",
+            "Fiber-rich vegetables",
+            "Sugary drinks",
+            "Nuts"
         ],
-        "correct": 1
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
     },
     {
-        "question": "Which planet is known as the 'Red Planet'?",
+        "question": "Which is not considered a heart-healthy food?",
         "choices": [
-            "Venus",
-            "Mars",
-            "Jupiter",
-            "Saturn"
+            "Blueberries",
+            "Salmon",
+            "Red meat",
+            "Almonds"
         ],
-        "correct": 1
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
     },
     {
-        "question": "Who wrote the play 'Romeo and Juliet'?",
+        "question": "What does not contribute to high energy levels?",
         "choices": [
-            "William Shakespeare",
-            "Charles Dickens",
-            "Leo Tolstoy",
-            "Jane Austen"
+            "Whole grains",
+            "Fresh fruits",
+            "Sugary soft drinks",
+            "Lean proteins"
         ],
-        "correct": 0
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
     },
     {
-        "question": "What is the main ingredient in traditional Japanese miso soup?",
+        "question": "Which of these is least helpful for good digestion?",
         "choices": [
-            "Rice",
-            "Noodles",
+            "Fiber-rich foods",
+            "Probiotic yogurt",
+            "Processed snacks",
+            "Leafy greens"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is least effective in maintaining healthy skin?",
+        "choices": [
+            "Hydration",
+            "Vitamin C",
+            "Fatty foods",
+            "Omega-3 fatty acids"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is not a recommended practice for weight management?",
+        "choices": [
+            "Balanced diet",
+            "Regular exercise",
+            "Fad diets",
+            "Adequate sleep"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is least beneficial for brain health?",
+        "choices": [
+            "Omega-3 fatty acids",
+            "Leafy greens",
+            "High-sugar foods",
+            "Nuts and seeds"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which food least supports a healthy immune system?",
+        "choices": [
+            "Citrus fruits",
+            "Green vegetables",
+            "Processed meat",
+            "Berries"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What is least effective in lowering blood pressure?",
+        "choices": [
+            "Potassium-rich foods",
+            "Low-sodium diet",
+            "Alcohol",
+            "Fresh fruits"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is least effective for healthy aging?",
+        "choices": [
+            "Antioxidant-rich foods",
+            "Regular exercise",
+            "High sugar diet",
+            "Adequate hydration"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "What does not contribute to lowering the risk of heart disease?",
+        "choices": [
+            "Whole grains",
+            "Vegetables",
+            "Processed meats",
+            "Fruits"
+        ],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "question": "Which is not a good source of protein?",
+        "choices": [
+            "Chicken",
             "Tofu",
-            "Miso Paste"
+            "Cookies",
+            "Lentils"
         ],
-        "correct": 3
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
     }
 ]

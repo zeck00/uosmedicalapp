@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, library_private_types_in_public_api, prefer_const_constructors, sort_child_properties_last
+
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/home_page.dart';
@@ -7,6 +9,8 @@ import 'package:flutter_application_1/screens/myicons.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
 import 'package:flutter_application_1/services/question_page_inner.dart';
 import 'package:flutter_application_1/services/question_manager.dart';
+
+import 'PerformanceGraphPage.dart';
 
 class QPage extends StatefulWidget {
   final int questionNum;
@@ -103,7 +107,7 @@ class _QPageState extends State<QPage> {
                     SizedBox(height: screenHeight * 0.01),
                     // Score bar added here
                     Container(
-                      width: screenWidth * 0.5,
+                      width: screenWidth * 0.65,
                       decoration: BoxDecoration(
                         color: MyColors.magenta.withAlpha(65),
                         borderRadius: BorderRadius.circular(10),
@@ -114,8 +118,21 @@ class _QPageState extends State<QPage> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => PerformanceGraphPage(),
+                                ));
+                              },
+                              icon: Icon(
+                                Icons.graphic_eq_sharp,
+                                color: MyColors.white,
+                              ),
+                            ),
+                            Expanded(child: Container()),
                             Text('Score: $_score',
                                 style: FontStyles.categories),
+                            Expanded(child: Container()),
                             IconButton(
                               icon:
                                   Icon(Icons.info_outline), // The 'i' info icon
@@ -168,7 +185,7 @@ class _QPageState extends State<QPage> {
                                   },
                                 );
                               },
-                            )
+                            ),
                           ],
                         ),
                       ),

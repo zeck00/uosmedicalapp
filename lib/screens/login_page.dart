@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_application_1/screens/home_page.dart';
@@ -82,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(height: screenSize.height * 0.03),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: MyColors.blue, // Background color
+                          backgroundColor: MyColors.blue, // Background color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),

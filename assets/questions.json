@@ -1,354 +1,532 @@
 [
     {
-        "question": "What is a primary source of Vitamin C?",
-        "choices": [
-            "Oranges",
-            "Apples",
-            "Oranges & Strawberries",
-            "Potatoes"
-        ],
+        "chapter": "Fundamentals of Nutrition",
+        "question": "What primarily concerns the science of nutrition?",
+        "choices": ["Body growth and maintenance", "Exercise routines", "Medication effects", "Sleep patterns"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+    {
+        "chapter": "Fundamentals of Nutrition",
+        "question": "Which factor is not directly related to nutrition?",
+        "choices": ["Exercise", "Diet", "Sleep", "Medication"],
+        "points": [1, 0.25, 0.5, 0.5],
+        "correct": 0
+    },
+    {
+        "chapter": "Fundamentals of Nutrition",
+        "question": "What is the focus of nutritional science?",
+        "choices": ["Body development", "Muscle building", "Disease prevention", "All of the above"],
+        "points": [0.25, 0.25, 0.25, 1],
+        "correct": 3
+    },
+    {
+        "chapter": "Nutrient Composition and Types",
+        "question": "Which is not a macronutrient?",
+        "choices": ["Proteins", "Vitamins", "Carbohydrates", "Fats"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Nutrient Composition and Types",
+        "question": "What is the primary function of micronutrients?",
+        "choices": ["Energy provision", "Structural materials", "Regulating body functions", "Building muscle mass"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Nutrient Composition and Types",
+        "question": "Which of these is a micronutrient?",
+        "choices": ["Fiber", "Protein", "Water", "Iron"],
+        "points": [0.25, 0.25, 0.25, 1],
+        "correct": 3
+    },
+    {
+        "chapter": "Functional Foods and Food Composition",
+        "question": "What defines a 'functional food'?",
+        "choices": ["High calorie content", "Additional physiological benefits beyond basic nutrition", "Low cost", "Convenience"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Functional Foods and Food Composition",
+        "question": "Which is not a characteristic of functional foods?",
+        "choices": ["Contain additives", "Provide health benefits", "High in essential nutrients", "Often processed"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+    {
+        "chapter": "Functional Foods and Food Composition",
+        "question": "Which of these is typically considered a functional food?",
+        "choices": ["White bread", "Soda", "Probiotic yogurt", "Candy"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Nutrition Science and Interdisciplinary Aspects",
+        "question": "Nutrition science often intersects with which other science?",
+        "choices": ["Astrophysics", "Political Science", "Biochemistry", "Literature"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Nutrition Science and Interdisciplinary Aspects",
+        "question": "Which is not commonly associated with nutrition science?",
+        "choices": ["Physiology", "Microbiology", "Genetics", "Astronomy"],
+        "points": [0.25, 0.25, 0.25, 1],
+        "correct": 3
+    },
+    {
+        "chapter": "Nutrition Science and Interdisciplinary Aspects",
+        "question": "Nutrition science closely relates to which medical field?",
+        "choices": ["Dermatology", "Pathology", "Orthopedics", "Cosmetology"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Healthy Diet Characteristics",
+        "question": "Which characteristic is essential for a healthy diet?",
+        "choices": ["High calorie intake", "Calorie control", "Single nutrient focus", "Fast food inclusion"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Healthy Diet Characteristics",
+        "question": "What should a balanced diet avoid?",
+        "choices": ["Excess of one nutrient", "Adequate hydration", "Diverse food types", "All food groups"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+    {
+        "chapter": "Healthy Diet Characteristics",
+        "question": "A healthy diet typically involves:",
+        "choices": ["Moderate sugar intake", "High fat consumption", "Calorie excess", "Skipping meals"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+    {
+        "chapter": "Dietary Guidelines and Food-Based Dietary Goals",
+        "question": "What is a primary aim of dietary guidelines?",
+        "choices": ["Promoting gourmet foods", "Reducing risk of chronic diseases", "Encouraging fast food", "Promoting brand names"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Dietary Guidelines and Food-Based Dietary Goals",
+        "question": "Dietary guidelines typically target which age group?",
+        "choices": ["Only seniors", "Only children", "People aged 2 and older", "Teenagers only"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Dietary Guidelines and Food-Based Dietary Goals",
+        "question": "Dietary guidelines help in developing:",
+        "choices": ["Commercial strategies", "Educational programs", "Entertainment content", "Fashion trends"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Labeling and Nutritional Information",
+        "question": "Why are food labels important for consumers?",
+        "choices": ["For marketing purposes", "To make informed nutritional choices", "For decoration", "To show brand popularity"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Labeling and Nutritional Information",
+        "question": "What mandatory information should food labels contain?",
+        "choices": ["Celebrity endorsements", "Nutritional facts and ingredient list", "Social media links", "Chef's recommendations"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Labeling and Nutritional Information",
+        "question": "What does 'Use-by' date on food labels indicate?",
+        "choices": ["Production date", "Best flavor date", "Safety for consumption", "Nutrient peak"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Traffic Light Labels and Nutritional Claims",
+        "question": "What does a red light on a traffic light label indicate?",
+        "choices": ["Low nutrient content", "Medium nutrient content", "High nutrient content", "Organic content"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Traffic Light Labels and Nutritional Claims",
+        "question": "Which claim might be found on a food label with a green light for fat?",
+        "choices": ["High Fat", "Fat-Free", "Rich in Fat", "Contains Trans Fat"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Traffic Light Labels and Nutritional Claims",
+        "question": "The traffic light label system is used to show the content of:",
+        "choices": ["Calories only", "Fat, sugar, and salt", "Vitamins only", "Food colorings"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Health Claims and Product Comparison",
+        "question": "What do health claims on food labels often relate to?",
+        "choices": ["Taste preferences", "Nutrient-disease relationships", "Brand history", "Celebrity endorsements"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Health Claims and Product Comparison",
+        "question": "A food label claiming to be 'low in sodium' is beneficial for people with:",
+        "choices": ["Hypertension", "Vision problems", "Bone issues", "Muscle growth"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+    {
+        "chapter": "Health Claims and Product Comparison",
+        "question": "When comparing two food products, it's important to consider:",
+        "choices": ["Packaging size", "Nutritional content", "Price only", "Brand popularity"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Label Regulations and Food Additives (E Numbers)",
+        "question": "What must food labels in the UAE include?",
+        "choices": ["Halal certification", "Ingredients in descending order of proportion", "Celebrity endorsements", "Social media handles of the manufacturer"],
+        "points": [0.5, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Label Regulations and Food Additives (E Numbers)",
+        "question": "What do E numbers on food labels represent?",
+        "choices": ["Energy levels", "Exercise recommendations", "Food additives", "Expiration dates"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Food Label Regulations and Food Additives (E Numbers)",
+        "question": "In the UAE, what information is mandatory on food labels?",
+        "choices": ["Nutritional value per serving", "Name and address of manufacturer", "Recommended recipes", "Fitness advice"],
+        "points": [0.5, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Eating Disorders",
+        "question": "Which is a common symptom of eating disorders?",
+        "choices": ["Consistent overeating", "Fear of gaining weight", "Preference for spicy food", "Desire for organic food"],
+        "points": [0.5, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Eating Disorders",
+        "question": "Which disorder involves eating non-food materials?",
+        "choices": ["Bulimia Nervosa", "Anorexia Nervosa", "Pica", "Binge Eating"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+    {
+        "chapter": "Eating Disorders",
+        "question": "What is a key factor in treating eating disorders?",
+        "choices": ["Increasing physical exercise", "Psychotherapy", "Focusing on weight loss", "Avoiding carbohydrates"],
+        "points": [0.25, 1, 0.5, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Obesity",
+        "question": "What is a primary cause of obesity?",
+        "choices": ["Genetics only", "High stress levels", "Positive energy balance", "Lack of sleep"],
         "points": [0.5, 0.25, 1, 0.5],
-        "correct":2
-    },
-    {
-        "question": "Which nutrient is essential for muscle building?",
-        "choices": [
-            "Carbohydrates",
-            "Proteins",
-            "Proteins & Carbohydrates",
-            "Fats"
-        ],
-        "points": [0.25, 0.75, 1, 0.25],
-        "correct":2
-    },
-    {
-        "question": "What helps in bone strengthening?",
-        "choices": [
-            "Vitamin D",
-            "Calcium",
-            "Vitamin D & Calcium",
-            "Iron"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct":2
-    },
-    {
-        "question": "Which food helps in lowering blood pressure?",
-        "choices": [
-            "Bananas",
-            "Leafy greens",
-            "Bananas & Leafy greens",
-            "Red meat"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What is crucial for pregnant women?",
-        "choices": [
-            "Folic acid",
-            "Iron",
-            "Folic acid & Iron",
-            "Caffeine"
-        ],
-        "points": [0.75, 0.5, 1, 0.25],
+        "chapter": "Obesity",
+        "question": "What does central obesity refer to?",
+        "choices": ["Overall body fat", "Fat around the abdomen", "Childhood obesity", "Temporary weight gain"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Obesity",
+        "question": "Which factor is not typically associated with obesity?",
+        "choices": ["Low physical activity", "High intake of fruits and vegetables", "Excessive calorie intake", "Sedentary lifestyle"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Diabetes Mellitus",
+        "question": "What is a key characteristic of Type 1 Diabetes Mellitus?",
+        "choices": ["Insulin resistance", "Loss of insulin-producing cells", "Caused by lifestyle", "Always preventable"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Diabetes Mellitus",
+        "question": "Which group is at higher risk for Type 2 Diabetes Mellitus?",
+        "choices": ["Children", "Athletes", "Overweight adults", "Infants"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What helps in reducing inflammation?",
-        "choices": [
-            "Turmeric",
-            "Ginger",
-            "Turmeric & Ginger",
-            "Sugar"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Diabetes Mellitus",
+        "question": "What is a common symptom of diabetes mellitus?",
+        "choices": ["Decreased appetite", "Frequent urination", "Rapid weight gain", "Heightened sense of smell"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Glycemic Index",
+        "question": "What does a low glycemic index (GI) indicate?",
+        "choices": ["High sugar content", "Rapid increase in blood sugar", "Slow impact on blood sugar levels", "High protein content"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Which is essential for eye health?",
-        "choices": [
-            "Carrots",
-            "Spinach",
-            "Carrots & Spinach",
-            "Fried foods"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Glycemic Index",
+        "question": "Foods with a high glycemic index are often:",
+        "choices": ["High in fiber", "Low in carbohydrates", "Rich in refined carbs and sugars", "Low in fats"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What aids in muscle recovery?",
-        "choices": [
-            "Protein",
-            "Carbohydrates",
-            "Protein & Carbohydrates",
-            "Fats"
-        ],
-        "points": [0.75, 0.5, 1, 0.25],
+        "chapter": "Glycemic Index",
+        "question": "Which food typically has a low GI?",
+        "choices": ["White bread", "Whole grains", "Sugary cereal", "Candy bars"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Lifestyle Advice for Diabetes Management",
+        "question": "What is a recommended lifestyle change for diabetes management?",
+        "choices": ["Decreased water intake", "Increased physical activity", "High sugar diet", "Avoiding all carbohydrates"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Lifestyle Advice for Diabetes Management",
+        "question": "Foot care is particularly important for individuals with:",
+        "choices": ["Hypertension", "Diabetes", "Common cold", "Migraines"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Lifestyle Advice for Diabetes Management",
+        "question": "For diabetic patients, it is important to carry:",
+        "choices": ["A snack at all times", "An ID card with medical information", "Fitness equipment", "A sugar substitute"],
+        "points": [0.5, 1, 0.25, 0.5],
+        "correct": 1
+    },
+    
+    {
+        "chapter": "Fundamentals of Nutrition",
+        "question": "Nutrition primarily focuses on:",
+        "choices": ["Taste enhancement", "Body growth and repair", "Food preservation", "Culinary skills"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Fundamentals of Nutrition",
+        "question": "Good nutrition is important for:",
+        "choices": ["Flavor only", "Maintaining health", "Food appearance", "Economic reasons"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+
+    {
+        "chapter": "Nutrient Composition and Types",
+        "question": "Vitamins are classified as:",
+        "choices": ["Macronutrients", "Micronutrients", "Energy nutrients", "Non-essential nutrients"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Nutrient Composition and Types",
+        "question": "Which nutrient provides the most energy per gram?",
+        "choices": ["Proteins", "Carbohydrates", "Fats", "Vitamins"],
+        "points": [0.25, 0.25, 1, 0.25],
+        "correct": 2
+    },
+
+    {
+        "chapter": "Functional Foods and Food Composition",
+        "question": "Probiotics are an example of:",
+        "choices": ["Functional foods", "Energy foods", "Processed foods", "Conventional foods"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+    {
+        "chapter": "Functional Foods and Food Composition",
+        "question": "Omega-3 fatty acids are known for:",
+        "choices": ["Improving heart health", "Providing energy", "Increasing sugar levels", "Decreasing protein absorption"],
+        "points": [1, 0.25, 0.25, 0.25],
+        "correct": 0
+    },
+
+    {
+        "chapter": "Nutrition Science and Interdisciplinary Aspects",
+        "question": "Nutrition science overlaps with:",
+        "choices": ["Mathematics", "History", "Medicine", "Music"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What is best for liver health?",
-        "choices": [
-            "Coffee",
-            "Tea",
-            "Coffee & Tea",
-            "Alcoholic beverages"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Nutrition Science and Interdisciplinary Aspects",
+        "question": "Which aspect is not typically linked with nutrition?",
+        "choices": ["Genetics", "Sociology", "Astronomy", "Pathology"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
+
     {
-        "question": "What improves sleep quality?",
-        "choices": [
-            "Chamomile tea",
-            "Warm milk",
-            "Chamomile tea & Warm milk",
-            "Energy drinks"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What is effective for stress relief?",
-        "choices": [
-            "Exercise",
-            "Meditation",
-            "Exercise & Meditation",
-            "Smoking"
-        ],
-        "points": [0.75, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What helps in lowering cholesterol?",
-        "choices": [
-            "Oats",
-            "Nuts",
-            "Oats & Nuts",
-            "Butter"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "Which vitamin is essential for blood clotting?",
-        "choices": [
-            "Vitamin A",
-            "Vitamin K",
-            "Vitamin B12",
-            "Vitamin K & B12"
-        ],
-        "points": [0.25, 0.75, 0.5, 1],
+        "chapter": "Healthy Diet Characteristics",
+        "question": "Balance in a diet means:",
+        "choices": ["Only eating fruits", "Equal quantities of all foods", "No intake of fats", "No single nutrient dominance"],
+        "points": [0.25, 0.25, 0.25, 1],
         "correct": 3
     },
     {
-        "question": "What is most beneficial for healthy hair and nails?",
-        "choices": [
-            "Vitamin C",
-            "Biotin",
-            "Vitamin C & Biotin",
-            "Vitamin E"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Healthy Diet Characteristics",
+        "question": "Variety in diet helps in:",
+        "choices": ["Saving money", "Preventing nutrient deficiencies", "Decreasing cooking time", "Improving cooking skills"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Dietary Guidelines and Food-Based Dietary Goals",
+        "question": "Dietary guidelines aim to:",
+        "choices": ["Enhance culinary skills", "Improve public health", "Promote specific brands", "Increase food production"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Dietary Guidelines and Food-Based Dietary Goals",
+        "question": "A key message of dietary guidelines is to:",
+        "choices": ["Limit physical activity", "Start with small dietary shifts", "Focus on single nutrient", "Avoid all fats"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Labeling and Nutritional Information",
+        "question": "Nutrition labels primarily help consumers:",
+        "choices": ["Choose the tastiest food", "Understand food's nutritional value", "Judge a food's brand quality", "Determine the food's origin country"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Labeling and Nutritional Information",
+        "question": "A 'low sodium' label is important for people with:",
+        "choices": ["Diabetes", "Hypertension", "Common cold", "Insomnia"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Traffic Light Labels and Nutritional Claims",
+        "question": "A green light in traffic light labels indicates:",
+        "choices": ["High nutrient content", "Medium nutrient content", "Low nutrient content", "No nutritional value"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Which mineral is crucial for thyroid function?",
-        "choices": [
-            "Iron",
-            "Iodine",
-            "Calcium",
-            "Iodine & Iron"
-        ],
-        "points": [0.25, 0.75, 0.25, 1],
-        "correct": 3
-    },
-    {
-        "question": "What aids in reducing the risk of type 2 diabetes?",
-        "choices": [
-            "Whole grains",
-            "Processed foods",
-            "Whole grains & Leafy greens",
-            "Leafy greens"
-        ],
-        "points": [0.5, 0.25, 1, 0.5],
+        "chapter": "Traffic Light Labels and Nutritional Claims",
+        "question": "Amber on a traffic light label means the nutrient level is:",
+        "choices": ["Very high", "High", "Moderate", "Low"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Which foods are rich in antioxidants?",
-        "choices": [
-            "Berries",
-            "Dark chocolate",
-            "Berries & Dark chocolate",
-            "White bread"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Health Claims and Product Comparison",
+        "question": "A food product 'high in fiber' can help with:",
+        "choices": ["Weight gain", "Improving digestion", "Increasing sugar levels", "Reducing protein absorption"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Health Claims and Product Comparison",
+        "question": "Comparing products' nutritional labels helps in:",
+        "choices": ["Choosing the cheaper option", "Identifying healthier choices", "Finding the newest products", "Determining the packaging quality"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Food Label Regulations and Food Additives (E Numbers)",
+        "question": "E numbers on food labels indicate:",
+        "choices": ["Energy content", "Expiration date", "Food additives", "Economic value"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What is most effective for boosting immune system?",
-        "choices": [
-            "Vitamin D",
-            "Probiotics",
-            "Vitamin D & Probiotics",
-            "Sugary drinks"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Food Label Regulations and Food Additives (E Numbers)",
+        "question": "In UAE food labels, which is a mandatory detail?",
+        "choices": ["Celebrity endorsement", "Social media rating", "List of ingredients", "Chef's recommendation"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Which dietary element is essential for maintaining fluid balance?",
-        "choices": [
-            "Proteins",
-            "Fats",
-            "Electrolytes",
-            "Electrolytes & Water"
-        ],
-        "points": [0.25, 0.25, 0.75, 1],
-        "correct": 3
+        "chapter": "Eating Disorders",
+        "question": "Bulimia Nervosa primarily involves:",
+        "choices": ["Overeating in private", "Extreme overeating and purging", "Avoiding all fats", "Eating non-food items"],
+        "points": [0.5, 1, 0.25, 0.25],
+        "correct": 1
     },
     {
-        "question": "What is most effective for preventing osteoporosis?",
-        "choices": [
-            "Vitamin D",
-            "Calcium",
-            "Vitamin D & Calcium",
-            "Vitamin C"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Eating Disorders",
+        "question": "Anorexia Nervosa typically includes:",
+        "choices": ["High-protein diet", "Extreme food restriction", "Constant snacking", "Preference for organic foods"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Obesity",
+        "question": "A major risk factor for obesity is:",
+        "choices": ["High metabolic rate", "Sedentary lifestyle", "High water intake", "Low carbohydrate diet"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Obesity",
+        "question": "Effective obesity treatment includes:",
+        "choices": ["Diet pills only", "Diet therapy and physical activity", "Skipping meals", "High-fat diets"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Diabetes Mellitus",
+        "question": "The hormone central to diabetes is:",
+        "choices": ["Adrenaline", "Insulin", "Cortisol", "Thyroxine"],
+        "points": [0.25, 1, 0.25, 0.25],
+        "correct": 1
+    },
+    {
+        "chapter": "Diabetes Mellitus",
+        "question": "Gestational Diabetes Mellitus occurs:",
+        "choices": ["During childhood", "In elderly individuals", "During pregnancy", "In athletes"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Which foods are good for heart health?",
-        "choices": [
-            "Whole grains",
-            "Fatty fish",
-            "Whole grains & Fatty fish",
-            "High-fat meats"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Glycemic Index",
+        "question": "Foods with a high GI are likely to:",
+        "choices": ["Contain lots of fiber", "Be rich in proteins", "Cause rapid blood sugar spikes", "Have low caloric content"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What is most beneficial for digestive health?",
-        "choices": [
-            "Fiber",
-            "Probiotics",
-            "Fiber & Probiotics",
-            "Processed foods"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Glycemic Index",
+        "question": "A low GI food typically:",
+        "choices": ["Increases appetite", "Is high in simple sugars", "Has little effect on blood sugar levels", "Leads to rapid weight gain"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "Which is a major dietary source of Omega-3 fatty acids?",
-        "choices": [
-            "Salmon",
-            "Chia seeds",
-            "Salmon & Chia seeds",
-            "Red meat"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Lifestyle Advice for Diabetes Management",
+        "question": "An important dietary consideration for diabetes is to:",
+        "choices": ["Avoid all carbohydrates", "Consume high sugar foods", "Focus on complex carbohydrates", "Increase fatty food intake"],
+        "points": [0.25, 0.25, 1, 0.25],
         "correct": 2
     },
     {
-        "question": "What is crucial for preventing anemia?",
-        "choices": [
-            "Vitamin C",
-            "Iron",
-            "Vitamin C & Iron",
-            "Vitamin B12"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What helps in maintaining a healthy weight?",
-        "choices": [
-            "Regular exercise",
-            "Balanced diet",
-            "Regular exercise & Balanced diet",
-            "Fad diets"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "Which vitamin is most important for vision?",
-        "choices": [
-            "Vitamin A",
-            "Vitamin E",
-            "Vitamin A & E",
-            "Vitamin C"
-        ],
-        "points": [0.75, 0.25, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What is essential for muscle function?",
-        "choices": [
-            "Protein",
-            "Magnesium",
-            "Protein & Magnesium",
-            "Carbohydrates"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What reduces the risk of heart disease?",
-        "choices": [
-            "Low-fat diet",
-            "High-fiber diet",
-            "Low-fat & High-fiber diet",
-            "High-sugar diet"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "Which is important for healthy pregnancy?",
-        "choices": [
-            "Folic acid",
-            "Calcium",
-            "Folic acid & Calcium",
-            "High-fat diet"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What is effective for maintaining healthy blood pressure?",
-        "choices": [
-            "Potassium-rich foods",
-            "Low-sodium diet",
-            "Potassium-rich foods & Low-sodium diet",
-            "High-sodium foods"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "Which nutrient is vital for energy production?",
-        "choices": [
-            "Carbohydrates",
-            "Proteins",
-            "Carbohydrates & Proteins",
-            "Fats"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
-        "correct": 2
-    },
-    {
-        "question": "What assists in lowering blood sugar levels?",
-        "choices": [
-            "High-fiber foods",
-            "Low-glycemic foods",
-            "High-fiber & Low-glycemic foods",
-            "High-sugar foods"
-        ],
-        "points": [0.5, 0.5, 1, 0.25],
+        "chapter": "Lifestyle Advice for Diabetes Management",
+        "question": "Regular monitoring of what is crucial for diabetes management?",
+        "choices": ["Blood pressure", "Body temperature", "Blood glucose levels", "Heart rate"],
+        "points": [0.5, 0.25, 1, 0.25],
         "correct": 2
     }
 ]
