@@ -66,7 +66,6 @@ class Client extends _i1.ServerpodClient {
   }) : super(
           host,
           _i4.Protocol(),
-          context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
     questServer = _EndpointQuestServer(this);

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import
+// ignore_for_file: prefer_const_constructors, unused_import, body_might_complete_normally_nullable
 
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +73,7 @@ class _StartupPageState extends State<StartupPage> {
                   Expanded(child: Container()),
                   SlideAction(
                     text: "",
-                    outerColor: MyColors.magenta,
+                    outerColor: MyColors.purple,
                     innerColor: MyColors.white,
                     height: 80,
                     borderRadius: 60,

@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                     BlurryContainer(
                       blur: 100,
                       width: screenSize.width,
-                      height: 120,
+                      height: 130,
                       color: MyColors.darkBlue.withOpacity(0.45),
                       borderRadius: BorderRadius.circular(35),
                       elevation: 10,

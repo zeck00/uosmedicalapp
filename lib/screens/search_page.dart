@@ -138,11 +138,11 @@ class LessonBox extends StatelessWidget {
   final int lessonNumber; // Add this line
 
   const LessonBox({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.filePath,
     required this.lessonNumber, // Add this line
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

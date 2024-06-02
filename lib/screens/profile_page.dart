@@ -9,7 +9,7 @@ import 'package:flutter_application_1/screens/setttings_page.dart';
 import 'search_page.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();

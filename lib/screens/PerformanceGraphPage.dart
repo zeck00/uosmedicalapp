@@ -1,17 +1,18 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
+//ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, file_names, avoid_print, unused_local_variable
 
-import 'package:fl_chart/fl_chart.dart';
+import 'dart:math';
+
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/mycolors.dart';
-import 'package:flutter_application_1/screens/myfonts.dart';
 import 'package:flutter_application_1/screens/myicons.dart';
-import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter_application_1/screens/pdf_page.dart';
 import 'package:flutter_application_1/screens/question_page.dart';
 import 'package:flutter_application_1/screens/search_page.dart';
 import 'package:flutter_application_1/services/question_manager.dart';
-import 'package:flutter_application_1/services/question_page_inner.dart';
-
+import 'package:fl_chart/fl_chart.dart';
 import 'home_page.dart';
+import 'myfonts.dart';
 
 class PerformanceGraphPage extends StatefulWidget {
   @override
@@ -20,60 +21,198 @@ class PerformanceGraphPage extends StatefulWidget {
 
 class _PerformanceGraphPageState extends State<PerformanceGraphPage> {
   late Map<String, double> _chapterScores;
+  final List<String> _chapters = [
+    'Fundamentals of Nutrition',
+    'Nutrient Composition and Types',
+    'Functional Foods and Food Composition',
+    'Nutrition Science and Interdisciplinary Aspects',
+    'Healthy Diet Characteristics',
+    'Dietary Guidelines and Food-Based Dietary Goals',
+    'Food Labeling and Nutritional Information',
+    'Traffic Light Labels and Nutritional Claims',
+    'Health Claims and Product Comparison',
+    'Food Label Regulations and Food Additives (E Numbers)',
+    'Eating Disorders',
+    'Obesity',
+    'Diabetes Mellitus',
+    'Glycemic Index',
+    'Lifestyle Advice for Diabetes Management',
+  ];
+  List<double> _scores = [];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Initialize chapter scores
-  //   _chapterScores = QuestMgr.instance.getChapterScores();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() {
+    final QuestMgr? questMgr = QuestMgr.instance();
+    // Initialize the scores map if it doesn't exist
+    if (questMgr!.getChapterScores().isEmpty) {
+      questMgr.initializeAllChapterScores();
+    }
+    _chapterScores = questMgr.getChapterScores();
+
+    // Print _chapterScores to debug
+    print("Chapter Scores: $_chapterScores");
+
+    // Use the predefined list of chapters to get the scores
+    _scores =
+        _chapters.map((chapter) => _chapterScores[chapter] ?? 0.0).toList();
+
+    // Print _scores to debug
+    print("Scores: $_scores");
+
+    setState(() {}); // Refresh the page with the updated data
+  }
+
+  String get highestScoringChapter {
+    if (_scores.isNotEmpty) {
+      final highestScoreIndex = _scores.indexOf(_scores.reduce(max));
+      return _chapters[highestScoreIndex];
+    }
+    return '';
+  }
+
+  String get lowestScoringChapter {
+    if (_scores.isNotEmpty) {
+      final lowestScoreIndex = _scores.indexOf(_scores.reduce(min));
+      return _chapters[lowestScoreIndex];
+    }
+    return '';
+  }
+
+  Widget linkToPdfPage(String chapterName) {
+    return InkWell(
+      child: Text(
+        chapterName,
+        style: TextStyle(
+          color: Colors.blue,
+          decoration: TextDecoration.underline,
+        ),
+      ),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PdfPage(filePath: chapterName),
+          ),
+        );
+      },
+    );
+  }
+
+  BarChartGroupData _makeGroupData(int x, double y, Color color) {
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
+          toY: y,
+          color: MyColors.white, // Set your desired color here
+          borderRadius:
+              BorderRadius.circular(4), // Optional: to round the corners
+        ),
+      ],
+    );
+  }
+
+  Widget _createChart() {
+    _loadData();
+    List<BarChartGroupData> barGroups = [];
+    for (int i = 0; i < _scores.length; i++) {
+      Color barColor = _scores[i] > 0.5 ? Colors.green : Colors.red;
+      barGroups.add(_makeGroupData(i, _scores[i], barColor));
+    }
+
+    // Print barGroups to debug
+    print("Bar Groups: $barGroups");
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: MyColors.grey.withAlpha(0),
+      ),
+      // Set the chart background to green
+      child: BarChart(
+        BarChartData(
+          barGroups: barGroups,
+          titlesData: FlTitlesData(
+            show: true,
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 30,
+                getTitlesWidget: (double value, TitleMeta meta) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Text((value.toInt() + 1).toString()),
+                  );
+                },
+              ),
+            ),
+            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          ),
+          gridData: FlGridData(
+            show: false, // Remove the grid lines
+          ),
+          borderData: FlBorderData(
+            show: false, // Optionally remove the border as well
+          ),
+          barTouchData: BarTouchData(
+            enabled: false, // Disable touch interactions if you don't need them
+          ),
+          alignment: BarChartAlignment.spaceAround,
+          maxY: _scores.isNotEmpty
+              ? _scores.reduce(max) * 1.12
+              : 1, // Adjust maxY based on the highest score
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // This should be your actual data from QuestMgr
-    final data = {
-      'Chapter 1': 3.0,
-      'Chapter 2': 5.0,
-      // ... more chapters
-    };
-
-    // Convert data to a format suitable for the graphing library
-    // Create the graph widget (You can replace this with your actual graph widget)
-
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: MyColors.green,
-      body: Container(
-        height: screenSize.height, // Set the container height
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/Splash.png"), fit: BoxFit.cover),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
+      body: SingleChildScrollView(
+        // Wrap with SingleChildScrollView for proper scrolling
+        child: Container(
+          height: screenSize.height, // Set the container height
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/Splash.png"),
+                fit: BoxFit.cover),
+          ),
           child: Center(
             child: BlurryContainer(
               borderRadius: BorderRadius.circular(35),
+              height: screenSize.height * 0.9,
               width: screenSize.width * 0.9,
-              // You might want to adjust the height based on the content
               blur: 25,
               color: MyColors.white.withAlpha(100),
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // Fit the content size
                   children: [
                     TopBarDis(),
-                    Expanded(child: Container()),
+                    SizedBox(
+                        height: screenSize.height *
+                            0.05), // Adjust the space between the elements
                     BlurryContainer(
                       blur: 100,
-                      width: screenSize.width,
-                      height: screenSize.height * 0.7,
+                      width: screenSize.width *
+                          1, // Adjust the width based on the screen size
+                      height: screenSize.height *
+                          0.6, // Adjust the height based on the screen size
                       color: MyColors.darkBlue.withOpacity(0.45),
                       borderRadius: BorderRadius.circular(35),
                       elevation: 10,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -83,17 +222,27 @@ class _PerformanceGraphPageState extends State<PerformanceGraphPage> {
                             Text("My Performance",
                                 style: FontStyles.categories),
                             SizedBox(height: 20),
-                            // Insert your graph widget here
-                            // CustomBarChart(
-                            //     _chapterScores), // Your interactive graph widget
-                            // _buildPerformanceStatement(
-                            //     _chapterScores), // Your dynamic performance statement widget
+                            Expanded(
+                              child: _createChart(),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Expanded(child: Container()),
-                    BottomNav(),
+                    SizedBox(height: screenSize.height * 0.02),
+                    if (_scores.isNotEmpty) ...[
+                      Text(
+                        'Check out your best topic: ',
+                        style: FontStyles.basic,
+                      ),
+                      linkToPdfPage(highestScoringChapter),
+                      Text(
+                        'Review the topic you need to improve: ',
+                        style: FontStyles.basic,
+                      ),
+                      linkToPdfPage(lowestScoringChapter),
+                    ],
+                    SizedBox(height: screenSize.height * 0.01),
                   ],
                 ),
               ),
@@ -104,80 +253,6 @@ class _PerformanceGraphPageState extends State<PerformanceGraphPage> {
     );
   }
 }
-
-// Widget _buildPerformanceStatement(chapterScores) {
-//   // Determine the best and worst chapters based on scores
-//   String bestChapter = chapterScores.keys.first; // Dummy logic for now
-//   String worstChapter = chapterScores.keys.last; // Dummy logic for now
-
-//   return Column(
-//     children: [
-//       Text('You have done very well in $bestChapter'),
-//       InkWell(
-//         onTap: () {
-//           // Navigate to PDFViewer for best chapter
-//         },
-//         child: Text(bestChapter,
-//             style: TextStyle(decoration: TextDecoration.underline)),
-//       ),
-//       Text('You need to improve in $worstChapter'),
-//       InkWell(
-//         onTap: () {
-//           // Navigate to PDFViewer for worst chapter
-//         },
-//         child: Text(worstChapter,
-//             style: TextStyle(decoration: TextDecoration.underline)),
-//       ),
-//     ],
-//   );
-// }
-
-// class CustomBarChart extends StatelessWidget {
-//   final Map<String, double> data;
-
-//   CustomBarChart(this.data);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CustomPaint(
-//       size: Size(300, 200), // Adjust the size as needed
-//       painter: BarChartPainter(data),
-//     );
-//   }
-// }
-
-// class BarChartPainter extends CustomPainter {
-//   final Map<String, double> data;
-
-//   BarChartPainter(this.data);
-
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     // Define chart properties
-//     final barWidth = 30.0;
-//     final spacing = 20.0;
-//     final maxValue = data.values.reduce((a, b) => a > b ? a : b);
-//     final scaleFactor = size.height / maxValue;
-
-//     // Define colors
-//     final barColor = Colors.blue;
-
-//     // Draw bars
-//     double startX = 10.0;
-//     data.forEach((key, value) {
-//       final barHeight = value * scaleFactor;
-//       final barRect =
-//           Rect.fromLTWH(startX, size.height - barHeight, barWidth, barHeight);
-//       canvas.drawRect(barRect, Paint()..color = barColor);
-//       startX += barWidth + spacing;
-//     });
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-//     return false;
-//   }
-// }
 
 class CircDisclaimer extends StatelessWidget {
   @override
@@ -238,8 +313,7 @@ class TopBarDis extends StatelessWidget {
     return Row(
       children: [
         InkWell(
-          onTap: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => const HomePage())),
+          onTap: () => Navigator.of(context).pop(),
           child: CircleAvatar(
             backgroundColor: MyColors.white.withAlpha(95),
             child: MyIcons.arrowleft(),

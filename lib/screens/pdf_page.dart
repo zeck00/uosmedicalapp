@@ -9,7 +9,7 @@ import 'package:pdfx/pdfx.dart';
 class PdfPage extends StatefulWidget {
   final String filePath; // Add a variable for file path
 
-  const PdfPage({Key? key, required this.filePath}) : super(key: key);
+  const PdfPage({super.key, required this.filePath});
 
   @override
   State<PdfPage> createState() => _PdfPageState();

@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/startup_page.dart';
+import 'package:flutter_application_1/services/GPTQGenerator.dart';
+import 'package:flutter_application_1/services/question_manager.dart';
 import 'package:uosmedicalapp_client/uosmedicalapp_client.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
@@ -14,8 +16,12 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 var client = Client('http://localhost:8080/')
   ..connectivityMonitor = FlutterConnectivityMonitor();
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await generateQuestions(
+      10, 1); // Generate 10 questions starting with difficulty 1
+  await QuestMgr
+      .createSingleton(); // Initialize QuestMgr with the generated questions
   // Lock the device orientation to portrait up and portrait down
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

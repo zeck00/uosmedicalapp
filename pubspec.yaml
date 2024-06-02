@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.4
-  blurrycontainer: 1.0.2
+  blurrycontainer: ^2.1.0
   pdf_viewer_plugin: ^2.0.1
 
 
@@ -40,7 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   url_launcher: ^6.1.10
   slide_to_act: ^2.0.1
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^17.1.2
   timezone: ^0.9.1
   rxdart: ^0.27.7
   
@@ -49,12 +49,14 @@ dependencies:
     path: ./client
   path_provider: ^2.1.1
   pdfx: ^2.3.0
-  fl_chart: ^0.62.0
+  fl_chart: ^0.68.0
+  flutter_charts: ^0.5.2
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.13.0
 
 flutter_icons:
