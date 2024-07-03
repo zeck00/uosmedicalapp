@@ -42,34 +42,13 @@ class _StartupPageState extends State<StartupPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(
-                        'assets/icons/HS.svg',
-                        width: MediaQuery.of(context).size.width,
-                        height: 65,
-                      )
+                      Image.asset(
+                        'assets/images/Splash-icon.png',
+                        height: 105,
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "Health Awareness and Nutrition",
-                        style: FontStyles.appname,
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "Course Assistant",
-                        style: FontStyles.appname,
-                      )
-                    ],
-                  ),
                   Expanded(child: Container()),
                   SlideAction(
                     text: "",

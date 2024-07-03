@@ -9,10 +9,16 @@ class MyIcons {
   }
 
   static Widget hs() {
-    return SvgPicture.asset(
-      'assets/icons/HS.svg',
-      width: 177,
-      height: 44,
+    return ClipRect(
+      child: Align(
+        alignment: Alignment.centerLeft, // Align to the left
+        widthFactor: 0.34, // Show only the left 40% of the SVG
+        child: SvgPicture.asset(
+          'assets/icons/HS.svg',
+          width: 180,
+          height: 65,
+        ),
+      ),
     );
   }
 
